@@ -1,0 +1,32 @@
+% report.tex
+
+% !TEX program = pdflatex
+% change it to xelatex if you use Chinese
+\documentclass[]{beamer}
+
+\input{preamble}
+\input{newcommands}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Beamer Template for Reports}
+\subtitle{\teal{(Conference VLDB'2022)}}
+
+\author[Hengfeng Wei]{Hengfeng Wei}
+\titlegraphic{
+  \includegraphics[height = 1.5cm]{figs/nju-logo-purple}~
+  \includegraphics[height = 1.5cm]{figs/software-logo}}
+\institute{hfwei@nju.edu.cn}
+\date{\today}
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%
+\input{sections/intro}
+%%%%%%%%%%%%%%%%%%%%
+\thankyou{}
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}[allowframebreaks]
+%   \printbibliography
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%
