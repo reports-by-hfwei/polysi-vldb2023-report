@@ -1,9 +1,124 @@
 % intro.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{What is Beamer?}
+\begin{frame}{Database Transactions}
   \begin{center}
-    \href{https://ctan.math.washington.edu/tex-archive/macros/latex/contrib/beamer/doc/beameruserguide.pdf}{Beamer User Guide}
+    A database transaction is a \blue{\it group} of operations \\[6pt]
+    that should be executed \red{atomically}.
   \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Isolation Levels}
+  \begin{center}
+    When multiple transactions are executed concurrently, \\[6pt]
+    the isolation levels specify how they are isolated from each other.
+    \vspace{0.60cm}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Serializability (SER)}
+  \begin{center}
+    All transactions appear to execute serially, one after another.
+
+    \vspace{0.60cm}
+    too expensive, especially for distributed transactions
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Snapshot Isolation (SI)}
+  \begin{center}
+    defs and examples
+    \pause
+    \vspace{0.60cm}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Snapshot Isolation (SI)}
+  \begin{center}
+
+    \pause
+    \vspace{0.60cm}
+    avoid the performance penalty of SER \\[6pt]
+    prevent undesirable common \blue{data anomalies} such as
+    fractured reads, causality violations, and lost updates
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Snapshot Isolation (SI)}
+  \begin{center}
+    database logos
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Snapshot Isolation (SI)}
+  \begin{center}
+    Database systems may fail to provide SI as they claim.
+
+    +papers
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The SI Checking Problem}
+  \begin{center}
+    Given a history $H$ of a database system, \\[6pt]
+    to decide whether $H$ satisfies SI?
+
+    +fig
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Motivation: Black-box SI Checker}
+  \begin{center}
+    Since the internals of database systems are often unavailable
+    or are hard to understand, \\[6pt]
+    a \blue{\it black-box} SI checker is highly desirable.
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Motivation: Black-box SI Checker}
+  \begin{center}
+    A black-box SI checker should be \\[8pt]
+    \begin{description}
+      \setlength{\itemsep}{6pt}
+      \item[Sound:] return no false positives
+      \item[Complete:] miss no violations
+      \item[Informative:] report understandable counterexamples
+      \item[Efficient:] run in a reasonable time even for large workloads
+    \end{description}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Motivation: Black-box SI Checker}
+  related-work
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contributions}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contributions}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
