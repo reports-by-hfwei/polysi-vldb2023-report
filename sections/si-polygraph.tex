@@ -1,1 +1,36 @@
 % si-polygraph.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Characterization of Snapshot Isolation}
+  \begin{center}
+		\only<4-5>{
+			Suppose that $T_{A} \rel{\WW} T_{B}$
+		}
+
+		\vspace{0.20cm}
+		{\input{tikz/banking-lost-update-depgraph-tikz}}
+		\vspace{0.20cm}
+
+		\only<2>{
+			$\WR$: ``write-read'' dependency capturing the ``read-from'' relation
+		}
+		\only<3-4>{
+			$\WW$: ``write-write'' dependency capturing the version order
+		}
+		\only<5>{
+			$\RW$: ``read-write'' dependency capturing the overwritten relation
+		}
+		\only<6>{
+			undesiable cycle: $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$
+		}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Characterization of Snapshot Isolation}
+  \begin{center}
+		% \fig{width = 0.65\textwidth}{figs/long-fork-wr}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

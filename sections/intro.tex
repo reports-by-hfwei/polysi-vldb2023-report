@@ -3,7 +3,8 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Database Transactions}
   \begin{center}
-    A database transaction is a \blue{\it group} of operations \\[6pt]
+    A database transaction is a \blue{\it group} of operations \\[10pt]
+    \figdouble{0.40}{0.80}{figs/all-or-none}{0.40}{0.80}{figs/all-or-none}
     that should be executed \red{atomically}.
   \end{center}
 \end{frame}
@@ -12,8 +13,8 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Isolation Levels}
   \begin{center}
-    When multiple transactions are executed concurrently, \\[6pt]
-    the isolation levels specify how they are isolated from each other.
+    Transactions may be executed concurrently. \\[6pt]
+    The isolation levels specify how they are isolated from each other.
     \vspace{0.60cm}
   \end{center}
 \end{frame}
@@ -33,9 +34,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Snapshot Isolation (SI)}
   \begin{center}
-    defs and examples
-    \pause
-    \vspace{0.60cm}
+    \fig{width = 0.90\textwidth}{figs/si-hierarchy}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -43,18 +42,50 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Snapshot Isolation (SI)}
   \begin{center}
-
-    \pause
+    example
+    % \fig{width = 0.80\textwidth}{figs/si-example}
     \vspace{0.60cm}
-    avoid the performance penalty of SER \\[6pt]
-    prevent undesirable common \blue{data anomalies} such as
-    fractured reads, causality violations, and lost updates
+    \begin{description}[Snapshot Write:]
+      \item[Snapshot Read:] Each transaction reads data from a snapshot
+        of committed data valid as of the (logical) time the transaction started.
+      \item[Snapshot Write:] Concurrent transactions cannot write to the same key.
+        One of them must be aborted.
+    \end{description}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Snapshot Isolation (SI)}
+\begin{frame}{SI Prevents the ``Lost Update'' Anomaly}
+  \begin{center}
+    \input{tikz/banking-lost-update-tikz}
+
+    \uncover<3->{
+      \vspace{0.50cm}
+      $T_{A}$ and $T_{B}$ are executed concurrently.
+    }
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{SI Prevents the ``Causality Violation'' Anomaly}
+  \begin{center}
+    \input{tikz/post-causality-violation-tikz}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{SI Allows the ``Write Skew'' Anomaly}
+  \begin{center}
+    % \input{tikz/lost-update-tikz}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Databases that Claim to Support SI}
   \begin{center}
     database logos
   \end{center}
@@ -100,8 +131,8 @@
       \setlength{\itemsep}{6pt}
       \item[Sound:] return no false positives
       \item[Complete:] miss no violations
-      \item[Informative:] report understandable counterexamples
       \item[Efficient:] run in a reasonable time even for large workloads
+      \item[Informative:] report understandable counterexamples
     \end{description}
   \end{center}
 \end{frame}
@@ -114,11 +145,25 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Contributions}
+\begin{frame}{Contributions: PolySI}
+  \begin{description}[Sound \& Complete:]
+    \setlength{\itemsep}{6pt}
+    \item[Sound \& Complete:] characterization of SI in terms of \blue{\it generalized polygraphs}
+    \item[Efficient:] encoding into MonoSAT queries;
+      domain-specific pruning before solving
+    \item[Informative:] extract understandable counterexamples from MonoSAT unsatisifiable core
+  \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Contributions}
+\begin{frame}{Contributions: PolySI}
+  \begin{center}
+    PolySI found SI violations in production database systems.
+
+    \vspace{0.80cm}
+    PolySI outperformed state-of-the-art black-box SI checkers
+    and scales up to large workloads.
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

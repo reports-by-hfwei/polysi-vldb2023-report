@@ -1,0 +1,21 @@
+% lost-update.tex
+
+\begin{tikzpicture}[
+  node distance = 0.8cm and 2.0cm,
+  txn/.style = {draw, inner sep = 3pt, align = center}]
+
+  \node[txn, label = above : $T_{0}$] (t) {$\writeevent(\acct, 0)$};
+
+  \uncover<2->{
+  \node[txn, label = above : $T_{A}$, above right = of t] (t-alice)
+    {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, 50)$};
+  }
+  \uncover<3->{
+  \node[txn, label = below : $T_{B}$, below right = of t] (t-bob)
+    {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, 25)$};
+  }
+
+  \uncover<4->{
+    \node[txn, label = above : $T'_{A}$, right = 6.0cm of t] (t-alice-read) {$\readevent(\acct, 25)$};
+  }
+\end{tikzpicture}

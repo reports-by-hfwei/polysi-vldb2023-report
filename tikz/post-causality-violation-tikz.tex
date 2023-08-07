@@ -1,0 +1,19 @@
+% post-causality-violation-tikz.tex
+
+\begin{tikzpicture}[
+  node distance = 1.5cm and 2.0cm,
+  wr/.style = {->, thick},
+  ww/.style = {->, thick, dashed},
+  rw/.style = {->, thick, dotted},
+  txn/.style = {draw, inner sep = 3pt, align = center}]
+
+  \node[txn, label = left : $T_{A}$] (t-alice) {$\writeevent(\keyxvar, \post)$};
+  \uncover<2->{
+  \node[txn, label = left : $T_{B}$, below = of t-alice] (t-bob)
+    {$\readevent(\keyxvar, \post)$ \\[2pt] $\writeevent(\keyyvar, \comment)$};
+  }
+  \uncover<3->{
+  \node[txn, label = left : $T_{C}$, below = of t-bob] (t-carl)
+    {$\readevent(\keyxvar, \emptypost)$ \\[2pt] $\readevent(\keyyvar, \comment)$};
+  }
+\end{tikzpicture}

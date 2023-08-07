@@ -114,6 +114,21 @@
   \end{figure}
 }
 
+\newcommand{\figdouble}[6]{
+  \begin{figure}[h]
+    \centering
+    \begin{subfigure}[c]{#1\textwidth}
+        \centering
+        \includegraphics[width = #2\textwidth]{#3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[c]{#4\textwidth}
+        \centering
+        \includegraphics[width = #5\textwidth]{#6}
+    \end{subfigure}
+  \end{figure}
+}
+
 %%%%% For Chinese %%%%%
 % \renewcommand\figurename{图:\;}
 % \renewcommand\tablename{表:\;}
@@ -121,6 +136,9 @@
 %%%%%%%%%%%%%%% Figures %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
+\usepackage{tikz}
+\usetikzlibrary{shapes, positioning, arrows.meta, decorations.pathmorphing}
+
 \usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
 \mdfsetup{frametitlealignment=\center}
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
