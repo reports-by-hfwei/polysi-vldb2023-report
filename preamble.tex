@@ -1,11 +1,5 @@
 % preamble.tex
 
-%%%%%%%%%%%%%%% Chinese %%%%%%%%%%%%%%%
-%%%%% Uncomment the following lines to use Chinese
-% \usepackage{xeCJK}
-% \usepackage{fontspec}
-%%%%%%%%%%%%%%% Chinese %%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%% Theme %%%%%%%%%%%%%%%
 \usetheme{CambridgeUS} % try Madrid
 \usecolortheme{beaver} % try beaver, dolphin, seahorse
@@ -42,38 +36,6 @@
 \newcommand{\hStatex}[0]{\vspace{4pt}}
 \renewcommand\algorithmicthen{}
 \renewcommand\algorithmicdo{}
-
-\algblockdefx[upon]{When}{EndWhen}%
-  [3][Unknown]{\textbf{when for every} #3 \textbf{received a quorum of} #1(#2)}%
-  {\textbf{end}}
-
-\algblockdefx[upon]{WhenReceive}{EndWhenReceive}%
-  [1][Unknown]{\textbf{when received} #1}%
-  {\textbf{end}}
-
-\algblockdefx[upon]{Upon}{EndUpon}%
-  [1][Unknown]{\textbf{upon} #1}%
-  {\textbf{end upon}}
-
-% Remove the end blank line when using noend in conjunction with custom blocks
-% See https://tex.stackexchange.com/a/172065
-\makeatletter
-\ifthenelse{\equal{\ALG@noend}{t}}%
-  {\algtext*{EndWhen}}
-  {}%
-\makeatother
-
-\makeatletter
-\ifthenelse{\equal{\ALG@noend}{t}}%
-  {\algtext*{EndWhenReceive}}
-  {}%
-\makeatother
-
-\makeatletter
-\ifthenelse{\equal{\ALG@noend}{t}}%
-  {\algtext*{EndUpon}}
-  {}%
-\makeatother
 %%%%%%%%%%%%%%% Algorithms %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% Theorems %%%%%%%%%%%%%%%
@@ -128,16 +90,13 @@
     \end{subfigure}
   \end{figure}
 }
-
-%%%%% For Chinese %%%%%
-% \renewcommand\figurename{图:\;}
-% \renewcommand\tablename{表:\;}
-%%%%% For Chinese %%%%%
 %%%%%%%%%%%%%%% Figures %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
 \usepackage{tikz}
-\usetikzlibrary{calc, shapes, positioning, arrows.meta, decorations.pathmorphing}
+\usetikzlibrary{calc, trees, positioning, arrows, chains, shapes.geometric,
+    decorations.pathreplacing, decorations.pathmorphing, shapes,
+    matrix, shapes.symbols}
 
 \usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
 \mdfsetup{frametitlealignment=\center}

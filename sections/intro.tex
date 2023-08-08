@@ -153,14 +153,25 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Contributions: PolySI}
-  \begin{description}[Sound \& Complete:]
-    \setlength{\itemsep}{6pt}
-    \item[Sound \& Complete:] characterization of SI in terms of \blue{\it generalized polygraphs}
-    \item[Efficient:] encoding into MonoSAT queries;
-      domain-specific pruning before solving
-    \item[Informative:] extract understandable counterexamples from MonoSAT unsatisifiable core
-  \end{description}
+\begin{frame}{Contributions: the \textsc{PolySI} Checker}
+  \begin{center}
+    \input{tikz/polysi-checker-tikz}
+
+    \vspace{0.50cm}
+    \only<2>{
+      \blue{{\it Sound} \&{\it Complete:}}
+        polygraph-based characterization of SI
+    }
+    \only<3>{
+      \blue{\it Efficient:} utilizing MonoSAT solver optimized for graph problems
+    }
+    \only<4>{
+      \blue{\it Efficient:} domain-specific pruning before encoding
+    }
+    \only<5>{
+      \blue{\it Informative:} extract counterexamples from the unsatisifiable core
+    }
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
