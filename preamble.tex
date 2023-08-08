@@ -137,7 +137,7 @@
 
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
 \usepackage{tikz}
-\usetikzlibrary{shapes, positioning, arrows.meta, decorations.pathmorphing}
+\usetikzlibrary{calc, shapes, positioning, arrows.meta, decorations.pathmorphing}
 
 \usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
 \mdfsetup{frametitlealignment=\center}
@@ -148,7 +148,7 @@
 \usepackage[natbib = true, backend = biber, style = authoryear, maxbibnames = 99]{biblatex}
 \setbeamertemplate{bibliography item}[article]
 \renewcommand*{\bibfont}{\footnotesize}
-% \addbibresource{xxx.bib}
+\addbibresource{vldb2023-polysi-report.bib}
 
 \newcommand{\ncite}[1]{\violet{\footnotesize [\cite{#1}]}}
 %%%%%%%%%%%%%%% Citation %%%%%%%%%%%%%%%

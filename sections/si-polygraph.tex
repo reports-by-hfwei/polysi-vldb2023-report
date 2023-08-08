@@ -1,10 +1,18 @@
 % si-polygraph.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Characterization of Snapshot Isolation}
+\begin{frame}{Dependency Graph-based Characterization of SI}
   \begin{center}
-		\only<4-5>{
+		\only<4>{
 			Suppose that $T_{A} \rel{\WW} T_{B}$
+		}
+		\only<5>{
+			$T_{0} \rel{\WR} T_{A} \land T_{0} \rel{\WW} T_{B}
+			  \implies T_{A} \rel{\RW} T_{B}$
+		}
+		\only<6>{
+			$T_{0} \rel{\WR} T_{B} \land T_{0} \rel{\WW} T_{A}
+			  \implies T_{A} \rel{\RW} T_{A}$
 		}
 
 		\vspace{0.20cm}
@@ -20,7 +28,7 @@
 		\only<5>{
 			$\RW$: ``read-write'' dependency capturing the overwritten relation
 		}
-		\only<6>{
+		\only<7>{
 			undesiable cycle: $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$
 		}
   \end{center}
@@ -28,9 +36,36 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Characterization of Snapshot Isolation}
+\begin{frame}{Dependency Graph-based Characterization of SI}
+  \begin{center}
+		% \fig{width = 0.65\textwidth}{figs/causality}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph-based Characterization of SI}
   \begin{center}
 		% \fig{width = 0.65\textwidth}{figs/long-fork-wr}
   \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph-based Characterization of SI}
+	\begin{center}
+		SI is characterised by dependency graphs that contain only \\[5pt]
+		cycles with \red{\it at least two adjacent anti-dependency} edges.
+	\end{center}
+
+	\vspace{0.50cm}
+  \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+		For a history \emph{$\H = (\T, \SO)$},
+		\emph{\begin{align*}
+			\H \models \si & \iff \H \models \intaxiom \;\land \\
+				&\exists \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
+				&\quad (((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?) \text{\it\; is acyclic}).
+		\end{align*}}
+  \end{theorem}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

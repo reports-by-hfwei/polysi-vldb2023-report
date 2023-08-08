@@ -1,0 +1,33 @@
+% checker-tikz.tex
+
+\begin{tikzpicture}[
+  node distance = 0.5cm and 1.0cm,
+  every label/.style = {font = \normalsize}]
+
+	\node[draw, thick, inner sep = 8pt] (checker) {SI Checker};
+
+	\coordinate (anchor) at ($(checker.west) + (-2.5, 0)$);
+	\draw[->, thick] (anchor) to
+	  node[above]{A history}
+	  node[below]{$\H = (\T, \SO)$}
+		(checker);
+
+	\node[above right = of checker] (sat) {\yes};
+	\node[below right = of checker] (unsat) {\no};
+
+	\draw[->, thick] (checker) to (sat);
+	\draw[->, thick] (checker) to (unsat);
+
+	\uncover<2->{
+		\node[above = 0.30cm of checker, blue] (sound) {\it Sound};
+	}
+	\uncover<3->{
+		\node[below = 0.30cm of checker, blue] (complete) {\it Complete};
+	}
+	\uncover<4->{
+		\node[right = 0.30cm of checker, blue] (efficient) {\it Efficient};
+	}
+	\uncover<5->{
+		\node[below = 0.00cm of unsat, blue] (informative) {\it Informative};
+	}
+\end{tikzpicture}

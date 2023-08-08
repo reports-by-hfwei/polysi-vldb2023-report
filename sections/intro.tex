@@ -104,12 +104,12 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The SI Checking Problem}
-  \begin{center}
-    Given a history $H$ of a database system, \\[6pt]
-    to decide whether $H$ satisfies SI?
+  \begin{definition}[The SI Checking Problem]
+    The SI checking problem is the \purple{decision problem} of \\[5pt]
+    determing whether a given \teal{history $\H = (T, \SO)$} satisfies SI?
+  \end{definition}
 
-    +fig
-  \end{center}
+  \fig{width = 0.60\textwidth}{figs/si-checking}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -126,14 +126,22 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Motivation: Black-box SI Checker}
   \begin{center}
-    A black-box SI checker should be \\[8pt]
-    \begin{description}
-      \setlength{\itemsep}{6pt}
-      \item[Sound:] return no false positives
-      \item[Complete:] miss no violations
-      \item[Efficient:] run in a reasonable time even for large workloads
-      \item[Informative:] report understandable counterexamples
-    \end{description}
+    \input{tikz/checker-tikz}
+
+    \vspace{0.30cm}
+    \only<2>{
+      \blue{\it Sound:} If the checker says \no, then the history is not SI.
+    }
+    \only<3>{
+      \blue{\it Complete:} If the checker says \yes, then the history is SI.
+    }
+    \only<4>{
+      \blue{\it Efficient:} The checker should scale up to large workloads.
+    }
+    \only<5>{
+      \blue{\it Informative:} The checker should provide understandable counterexamples
+        if it says \no.
+    }
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
