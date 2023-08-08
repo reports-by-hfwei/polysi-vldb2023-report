@@ -58,14 +58,62 @@
 		cycles with \red{\it at least two adjacent anti-dependency} edges.
 	\end{center}
 
-	\vspace{0.50cm}
+	\vspace{0.20cm}
   \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
 		For a history \emph{$\H = (\T, \SO)$},
 		\emph{\begin{align*}
 			\H \models \si & \iff \H \models \intaxiom \;\land \\
-				&\exists \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
+				&\red{\exists}\; \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
 				&\quad (((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?) \text{\it\; is acyclic}).
 		\end{align*}}
   \end{theorem}
+
+	\pause
+	\vspace{0.20cm}
+	\begin{center}
+		enumerate all possible \red{$\WW$} relations \\[5pt]
+		and check whether any of them satisfies the ``cycle'' condition.
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Polygraphs: A Family of Dependency Graphs}
+	\fig{width = 0.30\textwidth}{figs/polygraph-history}
+	\pause
+	\begin{columns}
+		\column{0.50\textwidth}
+			\fig{width = 0.60\textwidth}{figs/polygraph-k-i}
+		\column{0.50\textwidth}
+		  \pause
+			\fig{width = 0.60\textwidth}{figs/polygraph-i-k}
+	\end{columns}
+	\pause
+	\fig{width = 0.30\textwidth}{figs/polygraph}
+	\begin{center}
+		polygraph: $C = \bset{\tuple{\eithervar \triangleq T_{k} \rel{\WW} T_{i},
+		  \orvar \triangleq T_{j} \rel{\RW} T_{k}}}$
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Polygraphs: A Family of Dependency Graphs}
+	\fig{width = 0.20\textwidth}{figs/g-polygraph-history}
+	\pause
+	\begin{columns}
+		\column{0.50\textwidth}
+			\fig{width = 0.50\textwidth}{figs/g-polygraph-T-S}
+		\column{0.50\textwidth}
+		  \pause
+			\fig{width = 0.50\textwidth}{figs/g-polygraph-S-T}
+	\end{columns}
+	\pause
+	\fig{width = 0.25\textwidth}{figs/g-polygraph}
+	\begin{center}
+		generalized polygraph:
+		$C = \set{\tuple{\eithervar \triangleq \set{T_{k} \rel{\WW} T_{i}},
+		  \orvar \triangleq \set{T_{j} \rel{\RW} T_{k}}}}$
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
