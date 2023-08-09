@@ -78,6 +78,14 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph-based Characterization of SI}
+  \begin{center}
+		explain $\comp$
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Polygraphs: A Family of Dependency Graphs}
 	\fig{width = 0.30\textwidth}{figs/polygraph-history}
 	\pause
@@ -91,29 +99,39 @@
 	\pause
 	\fig{width = 0.30\textwidth}{figs/polygraph}
 	\begin{center}
-		polygraph: $C = \bset{\tuple{\eithervar \triangleq T_{k} \rel{\WW} T_{i},
-		  \orvar \triangleq T_{j} \rel{\RW} T_{k}}}$
+		polygraph: $\tuple{\eithervar \triangleq T_{k} \rel{\WW} T_{i},
+		  \orvar \triangleq T_{j} \rel{\RW} T_{k}}$
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Polygraphs: A Family of Dependency Graphs}
-	\fig{width = 0.20\textwidth}{figs/g-polygraph-history}
-	\pause
-	\begin{columns}
+	\begin{columns}[c]
 		\column{0.50\textwidth}
-			\fig{width = 0.50\textwidth}{figs/g-polygraph-T-S}
+			\begin{center}
+				\resizebox{0.60\textwidth}{!}{\input{tikz/g-polygraph-T-S-tikz}}
+			\end{center}
 		\column{0.50\textwidth}
-		  \pause
-			\fig{width = 0.50\textwidth}{figs/g-polygraph-S-T}
+			\begin{center}
+				\resizebox{0.60\textwidth}{!}{\input{tikz/g-polygraph-S-T-tikz}}
+			\end{center}
 	\end{columns}
-	\pause
-	\fig{width = 0.25\textwidth}{figs/g-polygraph}
+	\uncover<4->{
+		\fig{width = 0.30\textwidth}{figs/g-polygraph}
+		\begin{center}
+			generalized polygraph: \\[5pt]
+			$\tuple{\eithervar \triangleq \set{T \rel{\WW} S, T' \rel{\RW} S},
+				    \orvar \triangleq \set{S \rel{\WW} T, S' \rel{\RW} T}}$
+		\end{center}
+	}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\textsc{PolySI}}
 	\begin{center}
-		generalized polygraph:
-		$C = \set{\tuple{\eithervar \triangleq \set{T_{k} \rel{\WW} T_{i}},
-		  \orvar \triangleq \set{T_{j} \rel{\RW} T_{k}}}}$
+		\resizebox{0.95\textwidth}{!}{\input{tikz/polysi-alg-tikz}}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
