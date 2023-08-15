@@ -1,0 +1,44 @@
+% banking-lost-update-dep-theorem-tikz.tex
+
+\begin{tikzpicture}[
+  node distance = 0.8cm and 2.0cm,
+  wr/.style = {->, thick},
+  ww/.style = {->, thick, dashed, red},
+  rw/.style = {->, thick, dotted, blue},
+  txn/.style = {draw, inner sep = 3pt, align = center},
+  comp/.style = {->, ultra thick, purple, loosely dash dot}]
+
+  \node[txn, label = above : $T_{0}$] (t) {$\writeevent(\acct, 0)$};
+
+  \node[txn, label = above : $T_{A}$, above right = of t] (t-alice)
+    {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, 50)$};
+  \node[txn, label = below : $T_{B}$, below right = of t] (t-bob)
+    {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, 25)$};
+
+  \node[txn, label = above : $T'_{A}$, right = 6.0cm of t] (t-alice-read) {$\readevent(\acct, 25)$};
+
+  \draw[wr, sloped] (t) to node[below]{$\WR$} (t-alice.west);
+  \draw[wr, sloped] (t) to node[above]{$\WR$} (t-bob.west);
+  \draw[wr, sloped] (t-bob.east) to node[below]{$\WR$} (t-alice-read.south);
+
+  \draw[ww, bend left, sloped] (t) to node[above]{$\WW$} (t-alice);
+  \draw[ww, bend right, sloped] (t) to node[below]{$\WW$} (t-bob);
+  \draw[ww] (t-alice) to node[]{$\WW$} (t-bob);
+
+  \uncover<1-4>{
+  \draw[rw, bend right = 60] (t-alice.-145) to node[]{$\RW$} (t-alice.-145 |- t-bob.north);
+  \draw[rw, bend right = 60] (t-bob.35) to node[]{$\RW$} (t-bob.35 |- t-alice.south);
+  }
+
+  \uncover<2->{
+  \draw[comp, bend left = 30] (t.north west) to (t-alice.north west);
+  }
+  \uncover<3->{
+  \draw[comp, bend right = 30] (t.south west) to (t-bob.south west);
+  }
+  \uncover<4->{
+  \draw[comp] (t-alice.south east) to [out = -30, in = 30, looseness = 4] (t-alice.north east);
+  }
+  \uncover<5->{
+  }
+\end{tikzpicture}

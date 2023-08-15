@@ -4,7 +4,7 @@
 \begin{frame}{Dependency Graph-based Characterization of SI}
   \begin{center}
 		\only<4>{
-			Suppose that $T_{A} \rel{\WW} T_{B}$
+			\red{\it Suppose that $T_{A} \rel{\WW} T_{B}$}
 		}
 		\only<5>{
 			$T_{0} \rel{\WR} T_{A} \land T_{0} \rel{\WW} T_{B}
@@ -13,6 +13,9 @@
 		\only<6>{
 			$T_{0} \rel{\WR} T_{B} \land T_{0} \rel{\WW} T_{A}
 			  \implies T_{A} \rel{\RW} T_{A}$
+		}
+		\only<7->{
+			\red{$\boxed{\text{\it Suppose that}\;\; T_{A} \rel{\WW} T_{B}}$}
 		}
 
 		\vspace{0.20cm}
@@ -25,11 +28,11 @@
 		\only<3-4>{
 			$\WW$: ``write-write'' dependency capturing the version order
 		}
-		\only<5>{
+		\only<5-6>{
 			$\RW$: ``read-write'' dependency capturing the overwritten relation
 		}
 		\only<7>{
-			undesiable cycle: $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$
+			undesired cycle: $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$
 		}
   \end{center}
 \end{frame}
@@ -37,76 +40,105 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dependency Graph-based Characterization of SI}
-  \begin{center}
-		% \fig{width = 0.65\textwidth}{figs/causality}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
-  \begin{center}
-		% \fig{width = 0.65\textwidth}{figs/long-fork-wr}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
 	\begin{center}
-		SI is characterised by dependency graphs that contain only \\[5pt]
-		cycles with \red{\it at least two adjacent anti-dependency} edges.
-	\end{center}
+		\uncover<2->{
+			\red{$\boxed{\text{\it Suppose that}\;\; T_{B} \rel{\WW} T_{A}}$}
+		}
 
-	\vspace{0.20cm}
+		\vspace{0.20cm}
+		{\input{tikz/banking-lost-update-depgraph-ww-tbta-tikz}}
+		\vspace{0.20cm}
+
+		\uncover<5>{
+			undesired cycle: $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$
+		}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph-based Characterization of SI}
+  \begin{center}
+		We have considered both bases $T_{A} \rel{\WW} T_{B}$
+		and $T_{B} \rel{\WW} T_{A}$.
+
+		\vspace{0.20cm}
+		\fig{width = 0.65\textwidth}{figs/banking-lost-update-wr}
+		\vspace{0.20cm}
+
+		Either case leads to an undesired cycle. \\[2pt]
+		Therefore, it does not satisfy SI.
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph-based Characterization of SI}
   \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
-		For a history \emph{$\H = (\T, \SO)$},
-		\emph{\begin{align*}
-			\H \models \si & \iff \H \models \intaxiom \;\land \\
-				&\red{\exists}\; \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
-				&\quad (((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?) \text{\it\; is acyclic}).
-		\end{align*}}
-  \end{theorem}
-
-	\pause
-	\vspace{0.20cm}
-	\begin{center}
-		enumerate all possible \red{$\WW$} relations \\[5pt]
-		and check whether any of them satisfies the ``cycle'' condition.
-	\end{center}
+		Informally, a history satisfies SI if only if \\[3pt]
+		\red{there exists} a dependency graph for it that contains \\[3pt]
+		only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
+	\end{theorem}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dependency Graph-based Characterization of SI}
-  \begin{center}
-		explain $\comp$
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Polygraphs: A Family of Dependency Graphs}
-	\fig{width = 0.30\textwidth}{figs/polygraph-history}
-	\pause
 	\begin{columns}
 		\column{0.50\textwidth}
-			\fig{width = 0.60\textwidth}{figs/polygraph-k-i}
+			{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
 		\column{0.50\textwidth}
-		  \pause
-			\fig{width = 0.60\textwidth}{figs/polygraph-i-k}
+			{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
 	\end{columns}
-	\pause
-	\fig{width = 0.30\textwidth}{figs/polygraph}
+
+	\vspace{0.30cm}
 	\begin{center}
-		polygraph: $\tuple{\eithervar \triangleq T_{k} \rel{\WW} T_{i},
-		  \orvar \triangleq T_{j} \rel{\RW} T_{k}}$
+		Every possible dependency graph contains
+		an undesired \raisebox{-1.0ex}{\includegraphics[scale = 0.50]{figs/ww-rw-cycle}} cycle.
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Polygraphs: A Family of Dependency Graphs}
+\begin{frame}{Dependency Graph-based Characterization of SI}
+  \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+		For a history \emph{$\H = (\T, \SO)$},
+		\vspace{-0.30cm}
+		\begin{align*}
+			\H \models \si & \iff \H \models \intaxiom \;\land \\
+				&\red{\exists}\; \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
+				&\quad (\blue{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)} \text{\it\; is acyclic}).
+		\end{align*}
+  \end{theorem}
+
+	\begin{center}
+		\resizebox{0.60\textwidth}{!}{\input{tikz/banking-lost-update-depgraph-theorem-tikz.tex}}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph-based Characterization of SI}
+  \begin{center}
+		\red{$\mathcal{Q}:$ How to capture all possible $\WW$ dependencies?}
+
+		\vspace{0.50cm}
+		\begin{columns}
+			\column{0.50\textwidth}
+				{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
+			\column{0.50\textwidth}
+				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph-ww-tbta}
+		\end{columns}
+
+		\pause
+		\vspace{0.80cm}
+		\blue{$\mathcal{A}:$ encode them into SAT formulas based on (generalized) polygraphs}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Generalized Polygraphs: A Family of Dependency Graphs}
 	\begin{columns}[c]
 		\column{0.50\textwidth}
 			\begin{center}
@@ -129,9 +161,83 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}}
+\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
 	\begin{center}
-		\resizebox{0.95\textwidth}{!}{\input{tikz/polysi-alg-tikz}}
+		\resizebox{0.90\textwidth}{!}{\input{tikz/polysi-alg-tikz}}
+
+		\only<6>{
+			% A ``long fork'' history with $\SO$ and $\WR$ edges.
+			order between $T_{0}$, $T_{1}$, and $T_{5}$ (on $\keyxvar$)
+			and between $T_{0}$ and $T_{2}$ (on $\keyyvar$)
+		}
+
+		\only<7>{
+			The $T_{5} \rel{\WW(\keyxvar)} T_{0}$ case is pruned
+			due to $T_{0} \rel{\SO} T_{5} \rel{\WW(\keyxvar)} T_{0}$.
+		}
+
+		\only<9>{
+			The $T_{0} \rel{\WW(\keyxvar)} T_{5}$ case becomes known.
+		}
+
+		\only<11>{
+			The $T_{1} \rel{\WW(\keyxvar)} T_{0}$ case is pruned
+			due to $T_{3} \rel{\RW(\keyxvar)} T_{0} \rel{\WR(\keyyvar)} T_{3}$.
+		}
+
+		\only<13>{
+			The $T_{0} \rel{\WW(\keyxvar)} T_{1}$ case becomes known.
+		}
+
+		\only<15>{
+			The $T_{2} \rel{\WW(\keyyvar)} T_{0}$ case is pruned, \\
+			while the $T_{0} \rel{\WW(\keyyvar)} T_{2}$ case becomes known.
+		}
+		\only<17>{
+			The order between $T_{1}$ and $T_{5}$ is still uncertain after pruning.
+		}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+	\begin{center}
+		\[\tuple{
+			\uncover<2->{\purple{\eithervar} = \set{T_{1} \rel{\WW(\keyxvar)} T_{5},
+			  T_{3} \rel{\RW(\keyxvar)} T_{5}}},
+			\uncover<3->{\violet{\orvar} = \set{T_{5} \rel{\WW(\keyxvar)} T_{1}}}
+		}\]
+		\resizebox{0.90\textwidth}{!}{\input{tikz/polysi-alg-encoding-tikz}}
+		\uncover<4->{
+			\[
+				\purple{(\BV_{1,5} \land \BV_{3,5} \land \lnot \BV_{5,1})} \lor
+				\violet{(\BV_{5,1} \land \lnot \BV_{1,5} \land \lnot \BV_{3,5})}
+			\]
+		}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+	\begin{center}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+	\begin{center}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+	\begin{center}
+		\fig{width = 0.60\textwidth}{figs/polysi-alg-cycle}
+		The undesired cycle for ``long fork'' found by MonoSAT.
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

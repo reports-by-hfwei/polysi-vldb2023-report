@@ -1,21 +1,18 @@
 % intro.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Database Transactions}
+\begin{frame}{Transaction and Isolation Level}
   \begin{center}
-    A database transaction is a \blue{\it group} of operations \\[10pt]
-    \figdouble{0.40}{0.80}{figs/all-or-none}{0.40}{0.80}{figs/all-or-none}
-    that should be executed \red{atomically}.
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+    A transaction is a \blue{\it group} of operations
+    that is executed \red{atomically}.
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Isolation Levels}
-  \begin{center}
-    Transactions may be executed concurrently. \\[6pt]
-    The isolation levels specify how they are isolated from each other.
-    \vspace{0.60cm}
+    \vspace{0.30cm}
+		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-intro-write-skew-tikz}}
+
+    \vspace{0.20cm}
+    \uncover<3->{
+      The isolation levels specify how they are isolated from each other.
+    }
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -23,71 +20,29 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Serializability (SER)}
   \begin{center}
-    All transactions appear to execute serially, one after another.
+    All transactions appear to execute in some total order.
 
-    \vspace{0.60cm}
-    too expensive, especially for distributed transactions
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+    \vspace{0.30cm}
+		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-ser-write-skew-tikz}}
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Snapshot Isolation (SI)}
-  \begin{center}
-    \fig{width = 0.90\textwidth}{figs/si-hierarchy}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Snapshot Isolation (SI)}
-  \begin{center}
-    example
-    % \fig{width = 0.80\textwidth}{figs/si-example}
-    \vspace{0.60cm}
-    \begin{description}[Snapshot Write:]
-      \item[Snapshot Read:] Each transaction reads data from a snapshot
-        of committed data valid as of the (logical) time the transaction started.
-      \item[Snapshot Write:] Concurrent transactions cannot write to the same key.
-        One of them must be aborted.
-    \end{description}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{SI Prevents the ``Lost Update'' Anomaly}
-  \begin{center}
-    \input{tikz/banking-lost-update-tikz}
-
-    \uncover<3->{
-      \vspace{0.50cm}
-      $T_{A}$ and $T_{B}$ are executed concurrently.
+    \vspace{0.20cm}
+    \uncover<5->{
+      too expensive, especially for distributed transactions
     }
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{SI Prevents the ``Causality Violation'' Anomaly}
+\begin{frame}{Snapshot Isolation (SI)}
   \begin{center}
-    \input{tikz/post-causality-violation-tikz}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-si-write-skew-tikz}}
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{SI Allows the ``Write Skew'' Anomaly}
-  \begin{center}
-    % \input{tikz/lost-update-tikz}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Databases that Claim to Support SI}
-  \begin{center}
-    database logos
+    \vspace{0.20cm}
+    \uncover<7->{
+      \violet{Snapshot Read:} Each transaction reads data from a {\it snapshot}
+        of committed data valid as of the (logical) time the transaction started.
+    }
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -95,9 +50,42 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Snapshot Isolation (SI)}
   \begin{center}
-    Database systems may fail to provide SI as they claim.
+    \resizebox{0.48\textwidth}{!}{\input{tikz/isolation-si-lost-update-tikz}}
+  \end{center}
 
+  \vspace{-0.50cm}
+  \uncover<4->{
+  \violet{Snapshot Write:}
+    Concurrent transactions cannot write to the same key.
+    One of them must be aborted.
+  }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Snapshot Isolation (SI)}
+  \begin{center}
+    \resizebox{0.60\textwidth}{!}{\input{tikz/isolation-si-causality-violation-tikz}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Databases and Snapshot Isolation}
+  \begin{center}
+    database logos
+
+    Many databases claim to support SI.
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Databases and Snapshot Isolation}
+  \begin{center}
     +papers
+
+    Databases may fail to provide SI as they claim.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -110,50 +98,70 @@
   \end{definition}
 
   \fig{width = 0.60\textwidth}{figs/si-checking}
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+    \SO: \text{{\it session order} among the set $T$ of transactions}
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Motivation: Black-box SI Checker}
+\begin{frame}{The SI Checking Problem}
   \begin{center}
-    Since the internals of database systems are often unavailable
-    or are hard to understand, \\[6pt]
-    a \blue{\it black-box} SI checker is highly desirable.
+    \blue{\it Black-box checking:} do not rely on database internals
+
+    \vspace{0.20cm}
+    \resizebox{0.55\textwidth}{!}{\input{tikz/blackbox-tikz}}
+    \vspace{0.20cm}
+
+    \uncover<1->{
+      The histories are collected from database logs.
+    }
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Motivation: Black-box SI Checker}
+\begin{frame}{The SI Checking Problem}
   \begin{center}
     \input{tikz/checker-tikz}
 
     \vspace{0.30cm}
     \only<2>{
-      \blue{\it Sound:} If the checker says \no, then the history is not SI.
+      \blue{\it Sound:} If the checker says \no,
+        then the history does {\it not} satisfy SI.
     }
     \only<3>{
-      \blue{\it Complete:} If the checker says \yes, then the history is SI.
+      \blue{\it Complete:} If the checker says \yes,
+        then the history {\it satisfies} SI.
     }
     \only<4>{
-      \blue{\it Efficient:} The checker should scale up to large workloads.
+      \blue{\it Efficient:} The checker should {\it scale} up to large workloads.
     }
     \only<5>{
-      \blue{\it Informative:} The checker should provide understandable counterexamples
-        if it says \no.
+      \blue{\it Informative:} The checker should provide
+        understandable {\it counterexamples} if it says \no.
     }
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Motivation: Black-box SI Checker}
+\begin{frame}{The SI Checking Problem}
   related-work
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Contributions: the \textsc{PolySI} Checker}
+\begin{frame}{Contribution: the \polysi{} Checker}
+  \fig{width = 0.70\textwidth}{figs/checker-polysi}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Contribution: the \polysi{} Checker}
   \begin{center}
     \input{tikz/polysi-checker-tikz}
 
@@ -171,18 +179,6 @@
     \only<5>{
       \blue{\it Informative:} extract counterexamples from the unsatisifiable core
     }
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Contributions: PolySI}
-  \begin{center}
-    PolySI found SI violations in production database systems.
-
-    \vspace{0.80cm}
-    PolySI outperformed state-of-the-art black-box SI checkers
-    and scales up to large workloads.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

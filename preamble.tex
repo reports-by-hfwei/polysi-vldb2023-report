@@ -94,9 +94,15 @@
 
 %%%%%%%%%%%%%%% TiKZ %%%%%%%%%%%%%%%
 \usepackage{tikz}
-\usetikzlibrary{calc, trees, positioning, arrows, chains, shapes.geometric,
-    decorations.pathreplacing, decorations.pathmorphing, shapes,
-    matrix, shapes.symbols}
+\usetikzlibrary{calc, trees, positioning, arrows, arrows.meta,
+  chains, shapes.geometric, decorations.pathreplacing,
+  decorations.pathmorphing, shapes, matrix, shapes.symbols, fit}
+\tikzset{onslide/.code args={<#1>#2}{%
+  \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+\tikzset{temporal/.code args={<#1>#2#3#4}{%
+  \temporal<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}{\pgfkeysalso{#4}} % \pgfkeysalso doesn't change the path
+}}
 
 \usepackage[linewidth = 1pt, framemethod = TikZ]{mdframed}
 \mdfsetup{frametitlealignment=\center}
@@ -127,6 +133,7 @@
 \newcommand{\teal}[1]{\textcolor{teal}{#1}}
 \newcommand{\brown}[1]{\textcolor{brown}{#1}}
 \newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\yellow}[1]{\textcolor{yellow}{#1}}
 
 \newcommand{\hl}[2]{\fcolorbox{#1}{#1!60}{#2}}
 %%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%
