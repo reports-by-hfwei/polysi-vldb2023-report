@@ -127,3 +127,26 @@
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Polygraphs: A Family of Dependency Graphs}
+	\begin{columns}[c]
+		\column{0.50\textwidth}
+			\begin{center}
+				\resizebox{0.60\textwidth}{!}{\input{tikz/g-polygraph-T-S-tikz}}
+			\end{center}
+		\column{0.50\textwidth}
+			\begin{center}
+				\resizebox{0.60\textwidth}{!}{\input{tikz/g-polygraph-S-T-tikz}}
+			\end{center}
+	\end{columns}
+	\uncover<4->{
+		\fig{width = 0.30\textwidth}{figs/g-polygraph}
+		\begin{center}
+			generalized polygraph: \\[5pt]
+			$\tuple{\eithervar \triangleq \set{T \rel{\WW} S, T' \rel{\RW} S},
+				    \orvar \triangleq \set{S \rel{\WW} T, S' \rel{\RW} T}}$
+		\end{center}
+	}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

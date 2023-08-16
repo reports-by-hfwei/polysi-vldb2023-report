@@ -1,0 +1,24 @@
+% pruning-rw-case-tikz.tex
+
+\begin{tikzpicture}[vertex/.style = {circle, draw, minimum size = 30pt},
+  edge/.style = {->, thick},
+  path/.style = {->, thick, decorate, decoration = snake}]
+
+  \node[vertex] (from) {$\mathit{from}$};
+  \node[vertex, right = 2.0cm of from] (to) {$\mathit{to}$};
+  \draw[edge, blue] (from) to node[above, blue]{\textsf{RW}} (to);
+
+  \uncover<2->{
+  \node[vertex, below = 2.0cm of from, fill = yellow!50] (prec) {$\mathit{prec}$};
+
+  \draw[edge] (prec) to[sloped] node[above, purple]{{\it not} \textsf{RW}} (from);
+  \draw[path] (to) to[bend left = 70, sloped] (prec);
+    % node[above]{in $\knowninducedgraph$}
+  }
+
+  \uncover<4->{
+  \draw[edge, dashed] (prec) to[sloped]
+    % node[above]{in $\knowninducedgraph$}
+    (to);
+  }
+\end{tikzpicture}

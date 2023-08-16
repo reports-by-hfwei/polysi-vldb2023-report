@@ -120,42 +120,107 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dependency Graph-based Characterization of SI}
   \begin{center}
-		\red{$\mathcal{Q}:$ How to capture all possible $\WW$ dependencies?}
+		\red{$\mathcal{Q}:$ How to capture and resolve all {possible} $\WW$ dependencies?}
 
 		\vspace{0.50cm}
 		\begin{columns}
 			\column{0.50\textwidth}
-				{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
+				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}
 			\column{0.50\textwidth}
 				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph-ww-tbta}
 		\end{columns}
 
 		\pause
 		\vspace{0.80cm}
-		\blue{$\mathcal{A}:$ encode them into SAT formulas based on (generalized) polygraphs}
+		\blue{$\mathcal{A}:$ encode them into SAT formulas based on \\[2pt]
+		  (generalized) polygraphs and solve them using SAT solvers.}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Generalized Polygraphs: A Family of Dependency Graphs}
+\begin{frame}{Polygraphs: A Family of Dependency Graphs}
+	\begin{center}
+		Consider the two cases of $\WW$ dependencies between $T_{A}$ and $T_{B}$.
+	\end{center}
+
 	\begin{columns}[c]
 		\column{0.50\textwidth}
-			\begin{center}
-				\resizebox{0.60\textwidth}{!}{\input{tikz/g-polygraph-T-S-tikz}}
-			\end{center}
+			\fig{width = 0.80\textwidth}{figs/banking-lost-update-depgraph}
 		\column{0.50\textwidth}
-			\begin{center}
-				\resizebox{0.60\textwidth}{!}{\input{tikz/g-polygraph-S-T-tikz}}
-			\end{center}
+			\fig{width = 0.80\textwidth}{figs/banking-lost-update-depgraph-ww-tbta}
 	\end{columns}
-	\uncover<4->{
-		\fig{width = 0.30\textwidth}{figs/g-polygraph}
-		\begin{center}
-			generalized polygraph: \\[5pt]
-			$\tuple{\eithervar \triangleq \set{T \rel{\WW} S, T' \rel{\RW} S},
-				    \orvar \triangleq \set{S \rel{\WW} T, S' \rel{\RW} T}}$
-		\end{center}
+
+	\begin{center}
+		\pause
+		\fig{width = 0.40\textwidth}{figs/banking-lost-update-polygraph}
+		generalized polygraph:
+
+		\pause
+		\vspace{-0.30cm}
+		\[
+			\tuple{\teal{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
+				\teal{\orvar} \triangleq \set{T_{B} \rel{\WW} T_{A}, T_{A}' \rel{\RW} T_{A}}}
+		\]
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\polysi: Pruning before Encoding (the $\WW$ case)}
+	\begin{columns}
+		\column{0.40\textwidth}
+			\fig{width = 0.70\textwidth}{figs/pruning-ww-case}
+		\column{0.60\textwidth}
+		  \resizebox{1.00\textwidth}{!}{\input{tikz/banking-lost-update-polygraph-pruning-ww-tikz}}
+	\end{columns}
+
+	\vspace{0.30cm}
+  \begin{center}
+		\uncover<2->{
+			$T_{A} \rel{\WW} T_{0}$ can be pruned due to the
+			$T_{A} \rel{\WW} T_{0} \rel{\WR} T_{A}$ cycle.
+		}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\polysi: Pruning before Encoding (the $\WW$ case)}
+	\begin{columns}
+		\column{0.40\textwidth}
+			\fig{width = 0.60\textwidth}{figs/pruning-ww-case}
+		\column{0.60\textwidth}
+			\resizebox{1.00\textwidth}{!}{\input{tikz/banking-lost-update-polygraph-pruning-ww-tatb-tikz}}
+	\end{columns}
+
+	\vspace{0.30cm}
+  \begin{center}
+		\uncover<2->{
+		$T_{A} \rel{\WW} T_{B}$ is pruned due to the $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$ cycle. \\[2pt]
+		}
+		\uncover<3->{
+		$T_{B} \rel{\WW} T_{A}$ is pruned due to the $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$ cycle. \\[8pt]
+		}
+		\uncover<4->{
+		\red{Therefore, we are sure that the history does {\it not} satisfy SI.}
+		}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\polysi: Pruning before Encoding (the $\RW$ case)}
+  \begin{center}
+		\resizebox{0.40\textwidth}{!}{\input{tikz/pruning-rw-case-tikz}}
+  \end{center}
+
+	\uncover<3->{
+  \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+		Informally, a history satisfies SI if only if \\[3pt]
+		\red{there exists} a dependency graph for it that contains \\[3pt]
+		only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
+	\end{theorem}
 	}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
