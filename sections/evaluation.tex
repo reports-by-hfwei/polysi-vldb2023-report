@@ -12,17 +12,49 @@
 			\item \red{\it Efficient:}
 			  How efficient is PolySI? Is it scalable?
 		\end{enumerate}
+
+		\vspace{0.50cm}
+		\url{https://github.com/hengxin/PolySI-PVLDB2023-Artifacts}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Workloads, Benchmarks, and Setup}
+	\begin{center}
+		{\input{tables/workload}}
+
+		\vspace{0.50cm}
+		{Workload parameters and their default values.}
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Finding SI Violations}
+\begin{frame}{Finding SI Violations (Reproducing Known Violations)}
+	\begin{center}
+		{\input{tables/effectiveness-reproduce}}
+		\vspace{0.60cm}
+
+		An extensive collection of 2477 anomalous histories \\[2pt]
+		\ncite{Complexity:OOPSLA2019, CockroachDB-bug, YugabyteDB-bug}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Finding SI Violations (Detecting New Isolations)}
+	\begin{center}
+		Dgraph: helped the Dgraph team confirm some of their suspicions
+		  about their latest release
+
+		\vspace{0.50cm}
+		{\input{tables/effectiveness-new}}
+		\vspace{0.50cm}
+
+		Galera: confirmed the incorrect claim on preventing ``lost updates''
+		  for transactions issued on different cluster nodes
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 

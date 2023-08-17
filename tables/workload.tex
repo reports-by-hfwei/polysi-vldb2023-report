@@ -1,0 +1,19 @@
+% workload.tex
+
+\begin{table}[tbp]
+  \centering
+  % \caption{Workload parameters and their default values.}
+  \label{param-defaults}
+	\renewcommand\arraystretch{1.2}
+	\resizebox{0.50\textwidth}{!}{
+    \begin{tabular}{|c||c|}
+    \hline
+    Parameter   & Default Value \\ \hline \hline
+    \#sess      & 20   \\ \hline
+    \#txns/sess & 100  \\ \hline
+    \#ops/txn   & 15   \\ \hline
+    \#keys      & 10, 000  \\ \hline
+    \%reads     & 50\% \\ \hline
+	  distribution    & zipfian \\ \hline
+ \end{tabular}}
+\end{table}
