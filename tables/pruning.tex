@@ -1,0 +1,22 @@
+% pruning.tex
+
+\begin{table}[t]
+	\centering
+	% \caption{Number of constraints and unknown dependencies before and after  pruning (P)  in the six benchmarks.}\label{benchmark-stat}
+	\renewcommand\arraystretch{1.5}
+  \resizebox{0.75\textwidth}{!}{
+	\begin{tabular}{c|rr|rr}
+		\hline
+		Benchmark  & \#cons.  & \#cons. & \#unk.  dep. & \#unk.  dep. \\
+		& {before P} & \blue{after P} & {before P}     & \blue{after P}      \\
+		\hline\hline
+		TPC-C      & 386k     & \red{0}       & 3628k        & \red{0}            \\
+		GeneralRH  & 4k       & 29      & 39k          & 77           \\
+		RUBiS      & 14k      & 149     & 171k         & 839          \\
+		C-Twitter  & 59k      & 277     & 307k         & 776          \\
+		% Courseware & 156k     & 3352    & 761k         & 10359       \\
+		GeneralRW  & 90k      & 2565    & 401k         & 5435         \\
+		GeneralWH  & 167k     & 6962    & 468k         & 14376        \\
+		\hline
+	\end{tabular}}
+\end{table}

@@ -20,18 +20,36 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Workloads, Benchmarks, and Setup}
+\begin{frame}{Workloads}
 	\begin{center}
 		{\input{tables/workload}}
-
-		\vspace{0.50cm}
-		{Workload parameters and their default values.}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Finding SI Violations (Reproducing Known Violations)}
+\begin{frame}{Benchmarks}
+	\begin{center}
+		\begin{description}[GeneralRW:]
+			\setlength{\itemsep}{10pt}
+			\item[RuBis:] an eBay-like bidding system
+			\item[TPC-C:] an open standard for OLTP benchmarking
+			\item[C-Twitter:] a Twitter clone
+			\vspace{10pt}
+			\item[GeneralRH:] read-heavy workloads with $95\%$ reads
+			\item[GeneralRW:] medium workloads with $50\%$ reads
+			\item[GeneralWH:] write-heavy workloads with $30\%$ reads
+		\end{description}
+	\end{center}
+
+	\begin{center}
+		Use a simple database schema of a \blue{\it two-column table} storing keys and values.
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Finding SI Violations}
 	\begin{center}
 		{\input{tables/effectiveness-reproduce}}
 		\vspace{0.60cm}
@@ -43,7 +61,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Finding SI Violations (Detecting New Isolations)}
+\begin{frame}{Finding SI Violations}
 	\begin{center}
 		Dgraph: helped the Dgraph team confirm some of their suspicions
 		  about their latest release
@@ -64,26 +82,91 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance}
+\begin{frame}{Performance Evaluation}
+	\begin{description}
+		\setlength{\itemsep}{15pt}
+		\item[dbcop~\ncite{Complexity:OOPSLA2019}:]
+			the state-of-the-art SI checker without using SAT solvers
+		\item[Cobra~\ncite{Cobra:OSDI2020}:]
+		  the state-of-the-art SER checker using both MonoSAT and GPU;
+			as a baseline
+		\item[CobraSI:] reducing SI checking to SER checking \\
+		  \ncite{Complexity:OOPSLA2019} to leverage Cobra with/without GPU
+	\end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Scalability}
+\begin{frame}{Performance Evaluation: Runtime}
+	\centerline{PolySI significantly outperforms the competitors.}
+
+	\fig{width = 0.50\textwidth}{figs/polysi-runtime}
+	  % {Performance comparison under various workloads ({\it timeout = $180s$}).}
+  %\#sessions=20, \#txns/session=100, \#ops/txn=15,   keys=10k,  \%read=50\%, distribution=zipfian.
+
+	\centerline{All the input histories extracted from PostgreSQL satisfy SI.}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}{Performance Evaluation: Memory}
+	\centerline{PolySI consumes less memory.}
+	\fig{width = 0.50\textwidth}{figs/polysi-memory}
+  %\#sessions=20, \#txns/session=100, \#ops/txn=15,   keys=10k,  \%read=50\%, distribution=zipfian.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}{Performance Evaluation: Decomposition}
+	\begin{center}
+		TPC-C incurs more overhead in \blue{\it encoding}
+		as the number of operations in total is 5x more than the others.
+
+		\vspace{0.30cm}
+		\fig{width = 0.50\textwidth}{figs/polysi-decompose}
+		\vspace{0.30cm}
+
+		The solving time depends on the remaining constraints
+		and unknown dependencies \blue{\it after pruning}.
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}{Performance Evaluation: Pruning}
+	\begin{center}
+		\polysi{} can effectively \blue{prune} a huge number of constraints.
+
+		\vspace{0.30cm}
+		\input{tables/pruning}
+		\vspace{0.30cm}
+
+		\red{TPC-C}: read-only transactions + RMW transactions
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Performance Evaluation: Differential Analysis}
+	\begin{center}
+		\blue{Pruning} is crucial to the efficiency of \polysi.
+
+		\vspace{0.30cm}
+		\fig{width = 0.70\textwidth}{figs/polysi-diff}
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Performance Evaluation: Scalability}
+	\begin{center}
+		several hours and $35 \sim 40$GB memory for checking 1M transactions
+
+		\vspace{0.30cm}
+		\fig{width = 0.70\textwidth}{figs/polysi-scalability}
+		\vspace{0.30cm}
+
+		large workloads: 1B keys and 1M transactions, long transactions
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
