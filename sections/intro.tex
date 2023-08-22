@@ -71,21 +71,21 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Databases and Snapshot Isolation}
+\begin{frame}{Database systems and Snapshot Isolation}
   \begin{center}
-    database logos
-
-    Many databases claim to support SI.
+    Many database systems choose to support SI.
+    \fig{width = 0.80\textwidth}{figs/db-si}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Databases and Snapshot Isolation}
+\begin{frame}{Database Systems and Snapshot Isolation}
   \begin{center}
-    +papers
+    Database systems may \red{fail} to provide SI correctly as they claim.
 
-    Databases may fail to provide SI as they claim.
+    \vspace{0.30cm}
+    \fig{width = 0.85\textwidth}{figs/db-si-violations}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -149,8 +149,22 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The SI Checking Problem}
-  related-work
+\begin{frame}{Related Work}
+  \begin{description}
+    \setlength{\itemsep}{15pt}
+    \item[dbcop~\ncite{Complexity:OOPSLA2019}] checker for SI \\[2pt]
+      not practically efficient; \\[2pt]
+      not informative, only ``\textsf{False}'' upon violations
+    \pause
+    \item[Elle~\ncite{Elle:VLDB2020}] checker for various isolation levels \\[2pt]
+      SI checking based on~\ncite{Adya:PhDThesis1999}
+      relies on start/commit timestamps \\[2pt]
+      SI checking based on~\ncite{AnalysingSI:JACM2018}
+      is unsound for efficiency reasons~\footnote{https://github.com/jepsen-io/elle/issues/17; Fixed now.}
+    \pause
+    \item[Cobra~\ncite{Cobra:OSDI2020}] checker for SER \\[2pt]
+      SI checking is {\it harder} than SER checking
+  \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
