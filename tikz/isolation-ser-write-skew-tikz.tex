@@ -36,22 +36,16 @@
   \draw[comm] (t-carol) -- (t-carol |- isolation.north);
   \draw[comm] (isolation) -- (isolation |- db.north);
 
-  \uncover<3->{
   \node[txn, below = 0.50cm of db, fill = green!30] (t-bob-execution)
-    {$\readevent(\acctone, 60)$ \\[2pt]
+    {$\readevent(\acctone, -40)$ \\[2pt]
      $\readevent(\accttwo, 60)$};
-  }
 
-  \uncover<2->{
   \node[txn, left = of t-bob-execution] (t-alice-execution)
     {$\readevent(\acctone, 60)$ \\[2pt]
      $\readevent(\accttwo, 60)$ \\[2pt]
      $\writeevent(\acctone, -40)$};
-  }
 
-  \uncover<4->{
   \node[txn, right = of t-bob-execution] (t-carol-execution)
-    {$\readevent(\acctone, 60)$ \\[2pt]
+    {$\readevent(\acctone, -40)$ \\[2pt]
      $\readevent(\accttwo, 60)$};
-  }
 \end{tikzpicture}

@@ -22,6 +22,22 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The SI Checking Problem}
+  \begin{center}
+    \blue{\it Black-box SI checking:} does not rely on database internals
+
+    \vspace{0.20cm}
+    \resizebox{0.55\textwidth}{!}{\input{tikz/blackbox-tikz}}
+    \vspace{0.20cm}
+
+    \uncover<1->{
+      The histories are collected from database logs.
+    }
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Contribution: the \polysi{} Checker}
   \begin{center}
     % \uncover<2->{
@@ -109,6 +125,26 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph based Characterization of SI}
+  \begin{center}
+		\red{$\mathcal{Q}:$ How to capture all {possible} dependency graphs of a history?}
+
+		\vspace{0.50cm}
+		\begin{columns}
+			\column{0.50\textwidth}
+				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}
+			\column{0.50\textwidth}
+				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph-ww-tbta}
+		\end{columns}
+
+		% \pause
+		\vspace{0.80cm}
+		\blue{$\mathcal{A}:$ to represent them in a single {\it polygraph}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Polygraphs: A Family of Dependency Graphs}
 	\fig{width = 0.30\textwidth}{figs/polygraph-history}
 	\pause
@@ -149,4 +185,36 @@
 		\end{center}
 	}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Dependency Graph based Characterization of SI}
+%   \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+% 		Informally, a history satisfies SI if only if \\[3pt]
+% 		\red{there exists} a dependency graph for it that contains \\[3pt]
+% 		only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
+% 	\end{theorem}
+
+	% \vspace{0.50cm}
+	% \begin{center}
+	% 	\fbox{Undesired cycles: do not contain adjacent $\RW$ edges}
+	% \end{center}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Dependency Graph based Characterization of SI}
+% 	\begin{columns}
+% 		\column{0.50\textwidth}
+% 			{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
+% 		\column{0.50\textwidth}
+% 			{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
+% 	\end{columns}
+
+% 	\vspace{0.30cm}
+% 	\begin{center}
+% 		Every possible dependency graph {\it contains}
+% 		an undesired \raisebox{-1.0ex}{\includegraphics[scale = 0.50]{figs/ww-rw-cycle}} cycle.
+% 	\end{center}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%

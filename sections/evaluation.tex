@@ -10,7 +10,7 @@
 			\item \blue{\it Informative:}
 			  Can \polysi{} provide understandable counterexamples for SI violations?
 			\item \purple{\it Efficient:}
-			  How efficient is \polysi? Is it scalable?
+			  How efficient is \polysi?
 		\end{enumerate}
 
 		% \vspace{0.50cm}
@@ -41,19 +41,14 @@
 			\item[GeneralWH:] write-heavy workloads with $30\%$ reads
 		\end{description}
 	\end{center}
-
-	\vspace{0.30cm}
-	\begin{center}
-		Use a database schema of a \blue{\it two-column table} storing keys and values.
-	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Finding SI Violations}
+\begin{frame}{Reproducing Known SI Violations}
 	\begin{center}
 		{\input{tables/effectiveness-reproduce}}
-		\vspace{0.60cm}
+		\vspace{0.80cm}
 
 		An extensive collection of 2477 anomalous histories \\[2pt]
 		\ncite{Complexity:OOPSLA2019, CockroachDB-bug, YugabyteDB-bug}
@@ -62,16 +57,16 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Finding SI Violations}
+\begin{frame}{Detecting New SI Violations}
 	\begin{center}
-		\blue{Dgraph}: helped the Dgraph team confirm some of their suspicions
+		\red{Dgraph}: helped the Dgraph team \blue{confirm} some of their suspicions
 		  about their latest release
 
 		\vspace{0.50cm}
 		{\input{tables/effectiveness-new}}
 		\vspace{0.50cm}
 
-		\blue{Galera}: confirmed the incorrect claim on preventing ``lost updates''
+		\red{Galera}: \blue{confirmed} the incorrect claim on preventing ``lost updates''
 		  for transactions issued on different cluster nodes
 	\end{center}
 \end{frame}
@@ -123,31 +118,15 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance Evaluation: Decomposition}
+\begin{frame}{Performance Evaluation: Scalability}
 	\begin{center}
-		TPC-C incurs more overhead in \blue{\it encoding}
-		as the number of operations in total is 5x more than the others.
+		several hours and $35 \sim 40$GB memory for checking \blue{1M} transactions
 
 		\vspace{0.30cm}
-		\fig{width = 0.50\textwidth}{figs/polysi-decompose}
+		\fig{width = 0.70\textwidth}{figs/polysi-scalability}
 		\vspace{0.30cm}
 
-		The \blue{\it solving} time depends on the remaining constraints
-		and unknown dependencies {after pruning}.
-	\end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance Evaluation: Pruning}
-	\begin{center}
-		\polysi{} can effectively \blue{prune} a huge number of constraints.
-
-		\vspace{0.30cm}
-		\input{tables/pruning}
-		\vspace{0.30cm}
-
-		\red{TPC-C}: read-only transactions + RMW transactions
+		large workloads: 1B keys and 1M transactions, long transactions
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -166,15 +145,15 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance Evaluation: Scalability}
+\begin{frame}{Performance Evaluation: Pruning}
 	\begin{center}
-		several hours and $35 \sim 40$GB memory for checking \blue{1M} transactions
+		\polysi{} can effectively \blue{prune} a huge number of constraints.
 
 		\vspace{0.30cm}
-		\fig{width = 0.70\textwidth}{figs/polysi-scalability}
+		\input{tables/pruning}
 		\vspace{0.30cm}
 
-		large workloads: 1B keys and 1M transactions, long transactions
+		\red{TPC-C}: read-only transactions + RMW transactions
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

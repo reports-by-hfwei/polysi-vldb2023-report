@@ -9,7 +9,6 @@
   \node[below = of client] (db) {\includegraphics[scale = 0.80]{figs/db-logo-dollar}};
   \draw[comm] (client) to (db);
 
-  \uncover<2->{
   \node[txn, below = 1.00cm of db] (t-bob-execution)
     {$\readevent(\acct, 0)$ \\[2pt] $\writeevent(\acct, 50)$};
   \node[txn, left = of t-bob-execution] (t-alice-execution)
@@ -22,10 +21,8 @@
   \node[right = 0.10cm of post] (lost-update)
     {\red{\large \textsc{Lost Update}}};
   \node[scale = 2] (no) at (lost-update.center) {\no};
-  }
 
-  \uncover<3->{
-  \node[txn, below = 1.50cm of t-bob-execution] (t-bob-execution)
+  \node[txn, below = 1.00cm of t-bob-execution] (t-bob-execution)
     {$\readevent(\acctone, 60)$ \\[2pt]
      $\readevent(\accttwo, 60)$ \\[2pt]
      $\writeevent(\accttwo, -40)$};
@@ -41,5 +38,4 @@
   \node[right = 0.20cm of acct] (write-skew)
     {\red{\large \textsc{Write Skew}}};
   \node[scale = 2] (yes) at (write-skew.center) {\yes};
-  }
 \end{tikzpicture}

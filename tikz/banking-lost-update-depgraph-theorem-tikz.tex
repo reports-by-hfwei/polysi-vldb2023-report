@@ -25,7 +25,7 @@
   \draw[ww, bend right, sloped] (t) to node[below]{$\WW$} (t-bob);
   \draw[ww] (t-alice) to node[]{$\WW$} (t-bob);
 
-  \uncover<1-4>{
+  \uncover<1-2>{
   \draw[rw, bend right = 60] (t-alice.-145) to node[]{$\RW$} (t-alice.-145 |- t-bob.north);
   \draw[rw, bend right = 60] (t-bob.35) to node[]{$\RW$} (t-bob.35 |- t-alice.south);
   }
@@ -33,12 +33,10 @@
   \uncover<2->{
   \draw[comp, bend left = 30] (t.north west) to (t-alice.north west);
   }
-  \uncover<3->{
+  \uncover<2->{
   \draw[comp, bend right = 30] (t.south west) to (t-bob.south west);
   }
-  \uncover<4->{
+  \uncover<2->{
   \draw[comp] (t-alice.south east) to [out = -30, in = 30, looseness = 4] (t-alice.north east);
-  }
-  \uncover<5->{
   }
 \end{tikzpicture}

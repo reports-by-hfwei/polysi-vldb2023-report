@@ -4,15 +4,13 @@
 \begin{frame}{Transaction and Isolation Level}
   \begin{center}
     A transaction is a \blue{\it group} of operations
-    that is executed \red{atomically}.
+    that are executed \red{atomically}.
 
     \vspace{0.30cm}
-		\resizebox{0.60\textwidth}{!}{\input{tikz/isolation-intro-write-skew-tikz}}
+		\resizebox{0.55\textwidth}{!}{\input{tikz/isolation-intro-write-skew-tikz}}
 
     \vspace{0.20cm}
-    \uncover<3->{
-      The isolation levels specify how they are isolated from each other.
-    }
+    The isolation levels specify how they are isolated from each other.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -20,15 +18,13 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Serializability (SER)}
   \begin{center}
-    All transactions appear to execute in some total order.
+    All transactions appear to be executed in some total order.
 
     \vspace{0.30cm}
 		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-ser-write-skew-tikz}}
 
     \vspace{0.20cm}
-    \uncover<5->{
-      too expensive, especially for distributed transactions
-    }
+    Implementing SER is too expensive.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -39,10 +35,8 @@
 		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-si-write-skew-tikz}}
 
     \vspace{0.20cm}
-    \uncover<7->{
-      \violet{Snapshot Read:} Each transaction reads data from a {\it snapshot}
-        of committed data valid as of the (logical) time the transaction started.
-    }
+    \violet{Snapshot Read:} Each transaction reads data from a {\it snapshot} \\
+      as of the time the transaction started.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -54,11 +48,9 @@
   \end{center}
 
   \vspace{-0.50cm}
-  \uncover<4->{
   \violet{Snapshot Write:}
-    Concurrent transactions cannot write to the same key.
+    Concurrent transactions {\it cannot} write to the same key.
     One of them must be aborted.
-  }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -73,7 +65,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Database systems and Snapshot Isolation}
   \begin{center}
-    Many database systems choose to support SI.
+    Many database systems implement SI.
 
     \vspace{0.30cm}
     \fig{width = 0.80\textwidth}{figs/db-si}
@@ -84,7 +76,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Database Systems and Snapshot Isolation}
   \begin{center}
-    Database systems may \red{fail} to provide SI correctly as they claim.
+    Database systems may \red{fail} to provide SI correctly.
 
     \vspace{0.30cm}
     \fig{width = 0.85\textwidth}{figs/db-si-violations}
@@ -111,22 +103,6 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The SI Checking Problem}
   \begin{center}
-    \blue{\it Black-box SI checking:} does not rely on database internals
-
-    \vspace{0.20cm}
-    \resizebox{0.55\textwidth}{!}{\input{tikz/blackbox-tikz}}
-    \vspace{0.20cm}
-
-    \uncover<1->{
-      The histories are collected from database logs.
-    }
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The SI Checking Problem}
-  \begin{center}
     \input{tikz/checker-tikz}
 
     \vspace{0.30cm}
@@ -143,7 +119,7 @@
     }
     \only<5>{
       \blue{\it Informative:} The checker should provide
-        understandable {\it counterexamples} if it says \no.
+        understandable {\it counterexamples} if it finds violations.
     }
   \end{center}
 \end{frame}
@@ -162,8 +138,8 @@
       SI checking based on the Adya-style notions~\ncite{Adya:PhDThesis1999}
       relies on the start/commit timestamps of transactions.\\[2pt]
       \pause
-      SI checking based on the ~\ncite{AnalysingSI:JACM2018}
-      is unsound for efficiency reasons.~\footnote{https://github.com/jepsen-io/elle/issues/17; Fixed now.}
+      SI checking based on the~\ncite{AnalysingSI:JACM2018} notions
+      is unsound for efficiency reasons.~\footnote{https://github.com/jepsen-io/elle/issues/17 (fixed now)}
     \pause
     \item[Cobra~\ncite{Cobra:OSDI2020}] state-of-the-art checker for SER \\[2pt]
       SI checking is {\it harder} than SER checking.
@@ -194,7 +170,7 @@
       \blue{\it Efficient:} domain-specific pruning before encoding
     }
     \only<5>{
-      \blue{\it Informative:} extract counterexamples from the unsatisifiable core
+      \blue{\it Informative:} extract counterexamples from the UNSAT core
     }
   \end{center}
 \end{frame}

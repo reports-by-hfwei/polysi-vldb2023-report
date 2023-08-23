@@ -3,14 +3,17 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\polysi: Polygraph based Characterization of SI}
 	\begin{center}
-		{\it polygraph} based characterization of SI
+		% \fig{width = 0.90\textwidth}{figs/polysi-checker-polygraph}
+		% \vspace{0.30cm}
+		Before this, we first review the {\it dependency graph} based \\[5pt]
+		characterization of SI~\ncite{AnalysingSI:JACM2018}.
 
 		\vspace{0.30cm}
-		\fig{width = 0.90\textwidth}{figs/polysi-checker-polygraph}
-		\vspace{0.30cm}
-
-	  \pause
-		We first review the {\it dependency graph} based characterization of SI~\ncite{AnalysingSI:JACM2018}.
+		\begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+			Informally, a history satisfies SI if and only if \\[3pt]
+			\teal{there exists} a \red{dependency graph} for it that \\[3pt]
+			contains only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
+		\end{theorem}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -19,12 +22,14 @@
 \begin{frame}{Dependency Graph based Characterization of SI}
   \begin{center}
 		\only<4>{
-			$T_{0} \rel{\WR} T_{A} \land T_{0} \rel{\WW} T_{B}
-			  \implies T_{A} \rel{\RW} T_{B}$
+			% $T_{0} \rel{\WR} T_{A} \land T_{0} \rel{\WW} T_{B}
+			%   \implies T_{A} \rel{\RW} T_{B}$
+			$T_{A}$ reads from $T_{0}$ which is overwritten by $T_{B}$
 		}
 		\only<5>{
-			$T_{0} \rel{\WR} T_{B} \land T_{0} \rel{\WW} T_{A}
-			  \implies T_{A} \rel{\RW} T_{A}$
+			% $T_{0} \rel{\WR} T_{B} \land T_{0} \rel{\WW} T_{A}
+			%   \implies T_{A} \rel{\RW} T_{A}$
+			$T_{B}$ reads from $T_{0}$ which is overwritten by $T_{A}$
 		}
 		\only<7->{
 			\red{$\boxed{\text{\it Suppose that}\;\; T_{A} \rel{\WW} T_{B}}$}
@@ -41,13 +46,14 @@
 			$\WW$: ``write-write'' dependency capturing the version order on $\acct$
 		}
 		\only<4-5>{
-			$\RW$: ``read-write'' dependency capturing the overwritten relation
+			$\RW$: ``read-write'' dependency
 		}
 		\only<6>{
-			The cycle $T_{A} \rel{\RW} T_{B} \rel{\RW} T_{A}$ is \blue{allowed} by SI.
+			The cycle $T_{A} \rel{\RW} T_{B} \rel{\RW} T_{A}$
+			is \blue{allowed} by SI.
 		}
 		\only<7>{
-			undesired cycle: $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$
+			undesired cycle for SI: $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$
 		}
   \end{center}
 \end{frame}
@@ -64,8 +70,8 @@
 		{\input{tikz/banking-lost-update-depgraph-ww-tbta-tikz}}
 		\vspace{0.20cm}
 
-		\uncover<4>{
-			undesired cycle: $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$
+		\uncover<2>{
+			undesired cycle for SI: $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$
 		}
 	\end{center}
 \end{frame}
@@ -75,85 +81,47 @@
 \begin{frame}{Dependency Graph based Characterization of SI}
   \begin{center}
 		We have considered both bases $T_{A} \rel{\WW} T_{B}$
-		and $T_{B} \rel{\WW} T_{A}$.
+		and $T_{B} \rel{\WW} T_{A}$, \\[2pt]
+		and each case leads to an undesired cycle for SI.
 
 		\vspace{0.20cm}
 		\fig{width = 0.65\textwidth}{figs/banking-lost-update-wr}
 		\vspace{0.20cm}
 
-		Either case leads to an undesired cycle. \\[2pt]
-		Therefore, it does not satisfy SI.
+		Therefore, this history does not satisfy SI.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dependency Graph based Characterization of SI}
-  \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
-		Informally, a history satisfies SI if only if \\[3pt]
-		\red{there exists} a dependency graph for it that contains \\[3pt]
-		only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
+	\begin{theorem}[Equivalence of Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+		Informally, a history satisfies SI if and only if \\[3pt]
+		\teal{there exists} a \red{dependency graph $\G$} for it such that \\[3pt]
+		\cyan{the induced graph} ${\boxed{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)}}$ \text{\it is acyclic}.
 	\end{theorem}
-
-	\vspace{0.50cm}
-	\begin{center}
-		\fbox{Undesired cycles: do not contain adjacent $\RW$ edges}
-	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dependency Graph based Characterization of SI}
-	\begin{columns}
-		\column{0.50\textwidth}
-			{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
-		\column{0.50\textwidth}
-			{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
-	\end{columns}
-
-	\vspace{0.30cm}
-	\begin{center}
-		Every possible dependency graph {\it contains}
-		an undesired \raisebox{-1.0ex}{\includegraphics[scale = 0.50]{figs/ww-rw-cycle}} cycle.
-	\end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph based Characterization of SI}
-  \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
-		For a history \emph{$\H = (\T, \SO)$},
-		\vspace{-0.30cm}
-		\begin{align*}
-			\H \models \si & \iff \H \models \intaxiom \;\land \\
-				&\teal{\exists}\; \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
-				&\quad (\blue{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)} \text{\it\; is acyclic}).
-		\end{align*}
-  \end{theorem}
+	\[
+		\text{\it induced graph}\; {\boxed{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)}} \text{\it\; for $\G$}
+	\]
 
 	\begin{center}
 		\resizebox{0.60\textwidth}{!}{\input{tikz/banking-lost-update-depgraph-theorem-tikz.tex}}
+		\vspace{0.30cm}
+
+		\uncover<2->{
+			first composing ($\comp$) $\SO$/$\WR$/$\WW$ edges with $\RW$ edges
+		}
+
+		\vspace{0.20cm}
+		\uncover<3>{
+			then deleting the $\RW$ edges
+		}
 	\end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph based Characterization of SI}
-  \begin{center}
-		\red{$\mathcal{Q}:$ How to capture all {possible} $\WW$ dependencies?}
-
-		\vspace{0.50cm}
-		\begin{columns}
-			\column{0.50\textwidth}
-				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}
-			\column{0.50\textwidth}
-				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph-ww-tbta}
-		\end{columns}
-
-		% \pause
-		\vspace{0.80cm}
-		\blue{$\mathcal{A}:$ represent all possible dependency graphs in a single polygraph}
-  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -176,8 +144,6 @@
 		\pause
 		\fig{width = 0.50\textwidth}{figs/banking-lost-update-polygraph}
 		polygraph:
-		\pause
-		% \vspace{-0.30cm}
 		$\tuple{\teal{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
 				\teal{\orvar} \triangleq \set{T_{B} \rel{\WW} T_{A}, T_{A}' \rel{\RW} T_{A}}}
 		$
@@ -186,124 +152,54 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\polysi: Pruning before Encoding}
+\begin{frame}{\textsc{PolySI}: An Illustrating Example}
 	\begin{center}
-		\fig{width = 0.90\textwidth}{figs/polysi-checker-pruning}
-
-		\vspace{0.50cm}
-		domain-specific pruning before encoding for efficiency
+		\fig{width = 0.90\textwidth}{figs/polysi-checker-pruning-encoding-solving}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\polysi: Pruning before Encoding (the $\WW$ case)}
-	\begin{columns}
-		\column{0.40\textwidth}
-			\fig{width = 0.70\textwidth}{figs/pruning-ww-case}
-		\column{0.60\textwidth}
-		  \resizebox{1.00\textwidth}{!}{\input{tikz/banking-lost-update-polygraph-pruning-ww-tikz}}
-	\end{columns}
-
-	\vspace{0.30cm}
-  \begin{center}
-		\uncover<2->{
-			$T_{A} \rel{\WW} T_{0}$ can be pruned due to the
-			$T_{A} \rel{\WW} T_{0} \rel{\WR} T_{A}$ cycle.
-		}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\polysi: Pruning before Encoding (the $\WW$ case)}
-	\begin{columns}
-		\column{0.40\textwidth}
-			\fig{width = 0.60\textwidth}{figs/pruning-ww-case}
-		\column{0.60\textwidth}
-			\resizebox{1.00\textwidth}{!}{\input{tikz/banking-lost-update-polygraph-pruning-ww-tatb-tikz}}
-	\end{columns}
-
-	\vspace{0.30cm}
-  \begin{center}
-		\uncover<2->{
-		$T_{A} \rel{\WW} T_{B}$ is pruned due to the $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$ cycle. \\[2pt]
-		}
-		\vspace{5pt}
-		\uncover<3->{
-		$T_{B} \rel{\WW} T_{A}$ is pruned due to the $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$ cycle. \\[8pt]
-		}
-		\vspace{10pt}
-		\uncover<4->{
-		\red{Therefore, we are sure that the history does {\it not} satisfy SI.}
-		}
-  \end{center}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\polysi: Pruning before Encoding (the $\RW$ case)}
-  \begin{center}
-		\resizebox{0.30\textwidth}{!}{\input{tikz/pruning-rw-case-tikz}}
-  \end{center}
-
-	\uncover<2->{
-		Check if there is a path from $\mathit{to}$ to any
-		immediate predecessor $\mathit{prec}$ of $\mathit{from}$
-		that does not contain $\RW$ edges.
-	}
-	% \uncover<3->{
-  % \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
-	% 	Informally, a history satisfies SI if only if \\[3pt]
-	% 	\red{there exists} a dependency graph for it that contains \\[3pt]
-	% 	only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
-	% \end{theorem}
-	% }
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+\begin{frame}{\textsc{PolySI}: An Illustrating Example}
 	\begin{center}
 		\resizebox{0.90\textwidth}{!}{\input{tikz/polysi-alg-tikz}}
 
-		\only<6>{
-			% A ``long fork'' history with $\SO$ and $\WR$ edges.
-			order between $T_{0}$, $T_{1}$, and $T_{5}$ (on $\keyxvar$)
+		\only<1>{
+			$\WW$ between $T_{0}$, $T_{1}$, and $T_{5}$ (on $\keyxvar$)
 			and between $T_{0}$ and $T_{2}$ (on $\keyyvar$)
 		}
 
-		\only<7>{
+		\only<2>{
 			The $T_{5} \rel{\WW(\keyxvar)} T_{0}$ case is pruned
 			due to $T_{0} \rel{\SO} T_{5} \rel{\WW(\keyxvar)} T_{0}$.
 		}
 
-		\only<9>{
+		\only<4>{
 			The $T_{0} \rel{\WW(\keyxvar)} T_{5}$ case becomes known.
 		}
 
-		\only<11>{
+		\only<6>{
 			The $T_{1} \rel{\WW(\keyxvar)} T_{0}$ case is pruned
 			due to $T_{3} \rel{\RW(\keyxvar)} T_{0} \rel{\WR(\keyyvar)} T_{3}$.
 		}
 
-		\only<13>{
+		\only<8>{
 			The $T_{0} \rel{\WW(\keyxvar)} T_{1}$ case becomes known.
 		}
 
-		\only<15>{
+		\only<10>{
 			The $T_{2} \rel{\WW(\keyyvar)} T_{0}$ case is pruned, \\
 			while the $T_{0} \rel{\WW(\keyyvar)} T_{2}$ case becomes known.
 		}
-		\only<17>{
-			The order between $T_{1}$ and $T_{5}$ is still uncertain after pruning.
+		\only<12>{
+			The $\WW$ order between $T_{1}$ and $T_{5}$ is still uncertain after pruning.
 		}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+\begin{frame}{\textsc{PolySI}: An Illustrating Example}
 	\vspace{-0.50cm}
 	\[\tuple{
 		\uncover<2->{\purple{\eithervar} = \set{T_{1} \rel{\WW(\keyxvar)} T_{5},
@@ -327,13 +223,11 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+\begin{frame}{\textsc{PolySI}: An Illustrating Example}
 	\vspace{-0.50cm}
-	\uncover<2->{
 	\[
-		\purple{\boxed{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)}} \text{\it\; is acyclic}.
+		\teal{\text{induced graph}}\; {\boxed{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)}}
 	\]
-	}
 
 	\vspace{-0.40cm}
   \begin{columns}
@@ -343,24 +237,18 @@
 			\fig{width = 1.00\textwidth}{figs/polysi-alg-encoding}
 	\end{columns}
 
-	\uncover<3->{
-	\begin{center}
-		We need to encode the \purple{``composition ($\comp$)''} of dependency edges.
-	\end{center}
-	}
-
-	\uncover<4->{
+	\uncover<2->{
 	\[
 		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{2}:\;
-		  \BV_{1,2}^{\red{I}} = \BV_{1,3} \land \BV_{3,2} \quad
+		  \BV_{1,2}^{\red{I}} = \BV_{1,3} \;\land\; \BV_{3,2} \quad
 			(\red{I}\; \text{for the induced graph})
 	\]
 	}
 	\vspace{-0.30cm}
-	\uncover<5->{
+	\uncover<3->{
 	\[
 		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{5}:\;
-		  \BV_{1,5}^{\red{I}} = \BV_{1,3} \land \BV_{3,5} \quad
+		  \BV_{1,5}^{\red{I}} = \BV_{1,3} \;\land\; \BV_{3,5} \quad
 			(\red{I}\; \text{for the induced graph})
 	\]
 	}
@@ -368,10 +256,10 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+\begin{frame}{\textsc{PolySI}: An Illustrating Example}
 	\begin{center}
 		Feed the SAT formula into the \blue{MonoSAT} solver~\ncite{MonoSAT:AAAI2015}
-		optimized for \purple{\it cycle detection}
+		which is optimized for \purple{\it cycle detection}
 
 		\vspace{0.20cm}
 		\fig{width = 0.40\textwidth}{figs/sat-solver}
@@ -383,12 +271,12 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example of ``Long Fork''}
+\begin{frame}{\textsc{PolySI}: An Illustrating Example}
 	\begin{center}
 		\fig{width = 0.50\textwidth}{figs/polysi-alg-cycle}
 
 		\vspace{0.20cm}
-		The undesired cycle for ``long fork'' found by MonoSAT.
+		the undesired cycle found by MonoSAT
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

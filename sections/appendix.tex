@@ -1,0 +1,108 @@
+% appendix.tex
+
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{\polysi: Pruning before Encoding}
+% 	\begin{center}
+% 		\fig{width = 0.90\textwidth}{figs/polysi-checker-pruning}
+
+% 		\vspace{0.50cm}
+% 		pruning constraints before encoding for efficiency
+% 	\end{center}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{\polysi: Pruning before Encoding (the $\WW$ case)}
+% 	\begin{columns}
+% 		\column{0.40\textwidth}
+% 			\fig{width = 0.70\textwidth}{figs/pruning-ww-case}
+% 		\column{0.60\textwidth}
+% 		  \resizebox{1.00\textwidth}{!}{\input{tikz/banking-lost-update-polygraph-pruning-ww-tikz}}
+% 	\end{columns}
+
+% 	\vspace{0.30cm}
+%   \begin{center}
+% 		\uncover<2->{
+% 			$T_{A} \rel{\WW} T_{0}$ can be pruned due to the
+% 			$T_{A} \rel{\WW} T_{0} \rel{\WR} T_{A}$ cycle.
+% 		}
+%   \end{center}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{\polysi: Pruning before Encoding (the $\WW$ case)}
+% 	\begin{columns}
+% 		\column{0.40\textwidth}
+% 			\fig{width = 0.60\textwidth}{figs/pruning-ww-case}
+% 		\column{0.60\textwidth}
+% 			\resizebox{1.00\textwidth}{!}{\input{tikz/banking-lost-update-polygraph-pruning-ww-tatb-tikz}}
+% 	\end{columns}
+
+% 	\vspace{0.30cm}
+%   \begin{center}
+% 		\uncover<2->{
+% 		$T_{A} \rel{\WW} T_{B}$ is pruned due to the $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$ cycle. \\[2pt]
+% 		}
+% 		\vspace{5pt}
+% 		\uncover<3->{
+% 		$T_{B} \rel{\WW} T_{A}$ is pruned due to the $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$ cycle. \\[8pt]
+% 		}
+% 		\vspace{10pt}
+% 		\uncover<4->{
+% 		\red{Therefore, we are sure that the history does {\it not} satisfy SI.}
+% 		}
+%   \end{center}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{\polysi: Pruning before Encoding (the $\RW$ case)}
+%   \begin{center}
+% 		\resizebox{0.30\textwidth}{!}{\input{tikz/pruning-rw-case-tikz}}
+%   \end{center}
+
+% 	\uncover<2->{
+% 		Check if there is a path from $\mathit{to}$ to any
+% 		immediate predecessor $\mathit{prec}$ of $\mathit{from}$
+% 		that does not contain $\RW$ edges.
+% 	}
+% 	% \uncover<3->{
+%   % \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+% 	% 	Informally, a history satisfies SI if only if \\[3pt]
+% 	% 	\red{there exists} a dependency graph for it that contains \\[3pt]
+% 	% 	only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
+% 	% \end{theorem}
+% 	% }
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Dependency Graph based Characterization of SI}
+%   \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+% 		For a history \emph{$\H = (\T, \SO)$},
+% 		\vspace{-0.30cm}
+% 		\begin{align*}
+% 			\H \models \si & \iff \H \models \intaxiom \;\land \\
+% 				&\teal{\exists}\; \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
+% 				&\quad ({((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)} \text{\it\; is acyclic}).
+% 		\end{align*}
+%   \end{theorem}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Performance Evaluation: Decomposition}
+	\begin{center}
+		TPC-C incurs more overhead in \blue{\it encoding}
+		as the number of operations in total is 5x more than the others.
+
+		\vspace{0.30cm}
+		\fig{width = 0.50\textwidth}{figs/polysi-decompose}
+		\vspace{0.20cm}
+
+		The \blue{\it solving} time depends on the remaining constraints
+		and unknown dependencies {after pruning}.
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
