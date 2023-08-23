@@ -42,7 +42,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
 	\begin{center}
 		\uncover<2->{
 			\begin{tikzpicture}\node () {\includegraphics[scale = 0.10]{figs/1-logo}}; \end{tikzpicture}
@@ -63,7 +63,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
 	\begin{center}
 		\begin{tikzpicture}\node () {\includegraphics[scale = 0.10]{figs/2-logo}}; \end{tikzpicture}
 		\blue{How to detect the ``cycle'' condition efficiently?}
@@ -89,7 +89,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
   \begin{center}
 		\begin{tikzpicture}\node () {\includegraphics[scale = 0.10]{figs/1-logo}}; \end{tikzpicture}
 		\teal{How to search for such a dependency graph efficiently?}

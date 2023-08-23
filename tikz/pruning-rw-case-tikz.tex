@@ -9,14 +9,15 @@
   \draw[edge, blue] (from) to node[above, blue]{\textsf{RW}} (to);
 
   \uncover<2->{
-  \node[vertex, below = 2.0cm of from, fill = yellow!50] (prec) {$\mathit{prec}$};
+  \node[vertex, below = 2.5cm of from, fill = yellow!50] (prec) {$\mathit{prec}$};
 
-  \draw[edge] (prec) to[sloped] node[above, purple]{{\it not} \textsf{RW}} (from);
-  \draw[path] (to) to[bend left = 70, sloped] (prec);
-    % node[above]{in $\knowninducedgraph$}
+  \draw[edge] (prec) to[sloped] node[above, purple]{{\it not} \textsf{RW} edge} (from);
+  \draw[path] (to) to[bend left = 70, sloped]
+    node[above]{no \textsf{RW} edges}
+    (prec);
   }
 
-  \uncover<4->{
+  \uncover<3->{
   \draw[edge, dashed] (prec) to[sloped]
     % node[above]{in $\knowninducedgraph$}
     (to);

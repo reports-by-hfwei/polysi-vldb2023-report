@@ -6,15 +6,15 @@
 		\begin{enumerate}[(1)]
 			\setlength{\itemsep}{15pt}
 			\item \red{\it Effective:}
-			  Can PolySI find SI violations in production databases?
+			  Can \polysi{} find SI violations in production databases?
 			\item \blue{\it Informative:}
-			  Can PolySI provide understandable counterexamples for SI violations?
-			\item \red{\it Efficient:}
-			  How efficient is PolySI? Is it scalable?
+			  Can \polysi{} provide understandable counterexamples for SI violations?
+			\item \purple{\it Efficient:}
+			  How efficient is \polysi? Is it scalable?
 		\end{enumerate}
 
-		\vspace{0.50cm}
-		\url{https://github.com/hengxin/PolySI-PVLDB2023-Artifacts}
+		% \vspace{0.50cm}
+		% \url{https://github.com/hengxin/PolySI-PVLDB2023-Artifacts}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -42,8 +42,9 @@
 		\end{description}
 	\end{center}
 
+	\vspace{0.30cm}
 	\begin{center}
-		Use a simple database schema of a \blue{\it two-column table} storing keys and values.
+		Use a database schema of a \blue{\it two-column table} storing keys and values.
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -63,14 +64,14 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Finding SI Violations}
 	\begin{center}
-		Dgraph: helped the Dgraph team confirm some of their suspicions
+		\blue{Dgraph}: helped the Dgraph team confirm some of their suspicions
 		  about their latest release
 
 		\vspace{0.50cm}
 		{\input{tables/effectiveness-new}}
 		\vspace{0.50cm}
 
-		Galera: confirmed the incorrect claim on preventing ``lost updates''
+		\blue{Galera}: confirmed the incorrect claim on preventing ``lost updates''
 		  for transactions issued on different cluster nodes
 	\end{center}
 \end{frame}
@@ -89,32 +90,33 @@
 	\begin{description}
 		\setlength{\itemsep}{15pt}
 		\item[dbcop~\ncite{Complexity:OOPSLA2019}:]
-			the state-of-the-art SI checker without using SAT solvers
-		\item[Cobra~\ncite{Cobra:OSDI2020}:]
-		  the state-of-the-art SER checker using both MonoSAT and GPU;
-			as a baseline
+			the state-of-the-art SI checker
 		\item[CobraSI:] reducing SI checking to SER checking \\
 		  \ncite{Complexity:OOPSLA2019} to leverage Cobra with/without GPU
+			\vspace{0.20cm}
+			\begin{description}
+				\item[Cobra~\ncite{Cobra:OSDI2020}:]
+					the state-of-the-art SER checker using both MonoSAT and GPU
+			\end{description}
 	\end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance Evaluation: Runtime}
-	\centerline{PolySI significantly outperforms the competitors.}
+	\centerline{\polysi{} significantly outperforms the competitors.\footnote{
+		All the input histories extracted from PostgreSQL satisfy SI.
+	}}
 
 	\fig{width = 0.50\textwidth}{figs/polysi-runtime}
 	  % {Performance comparison under various workloads ({\it timeout = $180s$}).}
   %\#sessions=20, \#txns/session=100, \#ops/txn=15,   keys=10k,  \%read=50\%, distribution=zipfian.
-
-	\vspace{-0.30cm}
-	\centerline{All the input histories extracted from PostgreSQL satisfy SI.}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance Evaluation: Memory}
-	\centerline{PolySI consumes less memory.}
+	\centerline{\polysi{} consumes less memory.}
 	\fig{width = 0.50\textwidth}{figs/polysi-memory}
   %\#sessions=20, \#txns/session=100, \#ops/txn=15,   keys=10k,  \%read=50\%, distribution=zipfian.
 \end{frame}
@@ -130,8 +132,8 @@
 		\fig{width = 0.50\textwidth}{figs/polysi-decompose}
 		\vspace{0.30cm}
 
-		The solving time depends on the remaining constraints
-		and unknown dependencies \blue{\it after pruning}.
+		The \blue{\it solving} time depends on the remaining constraints
+		and unknown dependencies {after pruning}.
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -153,7 +155,9 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance Evaluation: Differential Analysis}
 	\begin{center}
-		\blue{Pruning} is crucial to the efficiency of \polysi.
+		\blue{Pruning (P)} is crucial to the efficiency of \polysi.\footnote{
+			\blue{Compacting (C)} encoding has been omitted in this presentation.
+		}
 
 		\vspace{0.30cm}
 		\fig{width = 0.70\textwidth}{figs/polysi-diff}
@@ -164,7 +168,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Performance Evaluation: Scalability}
 	\begin{center}
-		several hours and $35 \sim 40$GB memory for checking 1M transactions
+		several hours and $35 \sim 40$GB memory for checking \blue{1M} transactions
 
 		\vspace{0.30cm}
 		\fig{width = 0.70\textwidth}{figs/polysi-scalability}

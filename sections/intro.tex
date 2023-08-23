@@ -7,7 +7,7 @@
     that is executed \red{atomically}.
 
     \vspace{0.30cm}
-		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-intro-write-skew-tikz}}
+		\resizebox{0.60\textwidth}{!}{\input{tikz/isolation-intro-write-skew-tikz}}
 
     \vspace{0.20cm}
     \uncover<3->{
@@ -63,11 +63,11 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Snapshot Isolation (SI)}
-  \begin{center}
-    \resizebox{0.60\textwidth}{!}{\input{tikz/isolation-si-causality-violation-tikz}}
-  \end{center}
-\end{frame}
+% \begin{frame}{Snapshot Isolation (SI)}
+%   \begin{center}
+%     \resizebox{0.60\textwidth}{!}{\input{tikz/isolation-si-causality-violation-tikz}}
+%   \end{center}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
@@ -95,13 +95,12 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The SI Checking Problem}
   \begin{definition}[The SI Checking Problem]
-    The SI checking problem is the \purple{decision problem} of \\[5pt]
-    determing whether a given \teal{history $\H = (T, \SO)$} satisfies SI?
+    The SI checking problem is the \purple{decision problem} of determing \\[5pt]
+    whether a \teal{{\it history} $\H = (T, \SO)$} of a database system satisfies SI?
   \end{definition}
 
   \fig{width = 0.60\textwidth}{figs/si-checking}
 
-  \pause
   \vspace{-0.50cm}
   \[
     \SO: \text{{\it session order} among the set $T$ of transactions}
@@ -112,7 +111,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The SI Checking Problem}
   \begin{center}
-    \blue{\it Black-box checking:} do not rely on database internals
+    \blue{\it Black-box SI checking:} does not rely on database internals
 
     \vspace{0.20cm}
     \resizebox{0.55\textwidth}{!}{\input{tikz/blackbox-tikz}}
@@ -156,16 +155,18 @@
     \setlength{\itemsep}{15pt}
     \item[dbcop~\ncite{Complexity:OOPSLA2019}] checker for SI \\[2pt]
       not practically efficient; \\[2pt]
-      not informative, only ``\textsf{False}'' upon violations
+      not informative, returning only ``\textsf{False}'' upon violations
     \pause
     \item[Elle~\ncite{Elle:VLDB2020}] checker for various isolation levels \\[2pt]
-      SI checking based on~\ncite{Adya:PhDThesis1999}
-      relies on start/commit timestamps \\[2pt]
-      SI checking based on~\ncite{AnalysingSI:JACM2018}
-      is unsound for efficiency reasons~\footnote{https://github.com/jepsen-io/elle/issues/17; Fixed now.}
+      \pause
+      SI checking based on the Adya-style notions~\ncite{Adya:PhDThesis1999}
+      relies on the start/commit timestamps of transactions.\\[2pt]
+      \pause
+      SI checking based on the ~\ncite{AnalysingSI:JACM2018}
+      is unsound for efficiency reasons.~\footnote{https://github.com/jepsen-io/elle/issues/17; Fixed now.}
     \pause
-    \item[Cobra~\ncite{Cobra:OSDI2020}] checker for SER \\[2pt]
-      SI checking is {\it harder} than SER checking
+    \item[Cobra~\ncite{Cobra:OSDI2020}] state-of-the-art checker for SER \\[2pt]
+      SI checking is {\it harder} than SER checking.
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -184,7 +185,7 @@
     \vspace{0.50cm}
     \only<2>{
       \blue{{\it Sound} \&{\it Complete:}}
-        polygraph-based characterization of SI
+        polygraph based characterization of SI
     }
     \only<3>{
       \blue{\it Efficient:} utilizing MonoSAT solver optimized for graph problems

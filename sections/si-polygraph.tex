@@ -1,16 +1,28 @@
 % si-polygraph.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{\polysi: Polygraph based Characterization of SI}
+	\begin{center}
+		{\it polygraph} based characterization of SI
+
+		\vspace{0.30cm}
+		\fig{width = 0.90\textwidth}{figs/polysi-checker-polygraph}
+		\vspace{0.30cm}
+
+	  \pause
+		We first review the {\it dependency graph} based characterization of SI~\ncite{AnalysingSI:JACM2018}.
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dependency Graph based Characterization of SI}
   \begin{center}
 		\only<4>{
-			\red{\it Suppose that $T_{A} \rel{\WW} T_{B}$}
-		}
-		\only<5>{
 			$T_{0} \rel{\WR} T_{A} \land T_{0} \rel{\WW} T_{B}
 			  \implies T_{A} \rel{\RW} T_{B}$
 		}
-		\only<6>{
+		\only<5>{
 			$T_{0} \rel{\WR} T_{B} \land T_{0} \rel{\WW} T_{A}
 			  \implies T_{A} \rel{\RW} T_{A}$
 		}
@@ -25,11 +37,14 @@
 		\only<2>{
 			$\WR$: ``write-read'' dependency capturing the ``read-from'' relation
 		}
-		\only<3-4>{
-			$\WW$: ``write-write'' dependency capturing the version order
+		\only<3>{
+			$\WW$: ``write-write'' dependency capturing the version order on $\acct$
 		}
-		\only<5-6>{
+		\only<4-5>{
 			$\RW$: ``read-write'' dependency capturing the overwritten relation
+		}
+		\only<6>{
+			The cycle $T_{A} \rel{\RW} T_{B} \rel{\RW} T_{A}$ is \blue{allowed} by SI.
 		}
 		\only<7>{
 			undesired cycle: $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$
@@ -39,7 +54,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
 	\begin{center}
 		\uncover<2->{
 			\red{$\boxed{\text{\it Suppose that}\;\; T_{B} \rel{\WW} T_{A}}$}
@@ -49,7 +64,7 @@
 		{\input{tikz/banking-lost-update-depgraph-ww-tbta-tikz}}
 		\vspace{0.20cm}
 
-		\uncover<5>{
+		\uncover<4>{
 			undesired cycle: $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$
 		}
 	\end{center}
@@ -57,7 +72,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
   \begin{center}
 		We have considered both bases $T_{A} \rel{\WW} T_{B}$
 		and $T_{B} \rel{\WW} T_{A}$.
@@ -73,17 +88,22 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
   \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
 		Informally, a history satisfies SI if only if \\[3pt]
 		\red{there exists} a dependency graph for it that contains \\[3pt]
 		only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
 	\end{theorem}
+
+	\vspace{0.50cm}
+	\begin{center}
+		\fbox{Undesired cycles: do not contain adjacent $\RW$ edges}
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
 	\begin{columns}
 		\column{0.50\textwidth}
 			{\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph}}
@@ -93,20 +113,20 @@
 
 	\vspace{0.30cm}
 	\begin{center}
-		Every possible dependency graph contains
+		Every possible dependency graph {\it contains}
 		an undesired \raisebox{-1.0ex}{\includegraphics[scale = 0.50]{figs/ww-rw-cycle}} cycle.
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
   \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
 		For a history \emph{$\H = (\T, \SO)$},
 		\vspace{-0.30cm}
 		\begin{align*}
 			\H \models \si & \iff \H \models \intaxiom \;\land \\
-				&\red{\exists}\; \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
+				&\teal{\exists}\; \WR, \WW, \RW.\; \G = (\H, \WR, \WW, \RW) \;\land \\
 				&\quad (\blue{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)} \text{\it\; is acyclic}).
 		\end{align*}
   \end{theorem}
@@ -118,9 +138,9 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dependency Graph-based Characterization of SI}
+\begin{frame}{Dependency Graph based Characterization of SI}
   \begin{center}
-		\red{$\mathcal{Q}:$ How to capture and resolve all {possible} $\WW$ dependencies?}
+		\red{$\mathcal{Q}:$ How to capture all {possible} $\WW$ dependencies?}
 
 		\vspace{0.50cm}
 		\begin{columns}
@@ -130,10 +150,9 @@
 				\fig{width = 1.00\textwidth}{figs/banking-lost-update-depgraph-ww-tbta}
 		\end{columns}
 
-		\pause
+		% \pause
 		\vspace{0.80cm}
-		\blue{$\mathcal{A}:$ encode them into SAT formulas based on \\[2pt]
-		  (generalized) polygraphs and solve them using SAT solvers.}
+		\blue{$\mathcal{A}:$ represent all possible dependency graphs in a single polygraph}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -144,6 +163,7 @@
 		Consider the two cases of $\WW$ dependencies between $T_{A}$ and $T_{B}$.
 	\end{center}
 
+	\vspace{-0.20cm}
 	\begin{columns}[c]
 		\column{0.50\textwidth}
 			\fig{width = 0.80\textwidth}{figs/banking-lost-update-depgraph}
@@ -151,17 +171,27 @@
 			\fig{width = 0.80\textwidth}{figs/banking-lost-update-depgraph-ww-tbta}
 	\end{columns}
 
+	\vspace{-0.20cm}
 	\begin{center}
 		\pause
-		\fig{width = 0.40\textwidth}{figs/banking-lost-update-polygraph}
-		generalized polygraph:
-
+		\fig{width = 0.50\textwidth}{figs/banking-lost-update-polygraph}
+		polygraph:
 		\pause
-		\vspace{-0.30cm}
-		\[
-			\tuple{\teal{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
+		% \vspace{-0.30cm}
+		$\tuple{\teal{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
 				\teal{\orvar} \triangleq \set{T_{B} \rel{\WW} T_{A}, T_{A}' \rel{\RW} T_{A}}}
-		\]
+		$
+	\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\polysi: Pruning before Encoding}
+	\begin{center}
+		\fig{width = 0.90\textwidth}{figs/polysi-checker-pruning}
+
+		\vspace{0.50cm}
+		domain-specific pruning before encoding for efficiency
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -199,9 +229,11 @@
 		\uncover<2->{
 		$T_{A} \rel{\WW} T_{B}$ is pruned due to the $T_{A} \rel{\WW} T_{B} \rel{\RW} T_{A}$ cycle. \\[2pt]
 		}
+		\vspace{5pt}
 		\uncover<3->{
 		$T_{B} \rel{\WW} T_{A}$ is pruned due to the $T_{B} \rel{\WW} T_{A} \rel{\RW} T_{B}$ cycle. \\[8pt]
 		}
+		\vspace{10pt}
 		\uncover<4->{
 		\red{Therefore, we are sure that the history does {\it not} satisfy SI.}
 		}
@@ -215,13 +247,18 @@
 		\resizebox{0.30\textwidth}{!}{\input{tikz/pruning-rw-case-tikz}}
   \end{center}
 
-	\uncover<3->{
-  \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
-		Informally, a history satisfies SI if only if \\[3pt]
-		\red{there exists} a dependency graph for it that contains \\[3pt]
-		only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
-	\end{theorem}
+	\uncover<2->{
+		Check if there is a path from $\mathit{to}$ to any
+		immediate predecessor $\mathit{prec}$ of $\mathit{from}$
+		that does not contain $\RW$ edges.
 	}
+	% \uncover<3->{
+  % \begin{theorem}[Theorem 4.1 of~\ncite{AnalysingSI:JACM2018}]
+	% 	Informally, a history satisfies SI if only if \\[3pt]
+	% 	\red{there exists} a dependency graph for it that contains \\[3pt]
+	% 	only cycles (if any) with \blue{at least two adjacent $\RW$} edges.
+	% \end{theorem}
+	% }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -312,7 +349,6 @@
 	\end{center}
 	}
 
-	\vspace{0.20cm}
 	\uncover<4->{
 	\[
 		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{2}:\;

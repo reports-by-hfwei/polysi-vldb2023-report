@@ -26,12 +26,10 @@
   \draw[ww] (t-bob) to node[]{$\WW$} (t-alice);
   }
 
-  \uncover<3->{
   \draw[rw, bend right = 60] (t-alice.-145) to node[]{$\RW$} (t-alice.-145 |- t-bob.north);
   \draw[rw, bend right = 60] (t-bob.35) to node[]{$\RW$} (t-bob.35 |- t-alice.south);
-  }
 
-  \uncover<4->{
+  \uncover<3->{
   \draw[rw] (t-alice-read.north) to node[sloped, above]{$\RW$} (t-alice.east);
   }
 \end{tikzpicture}
