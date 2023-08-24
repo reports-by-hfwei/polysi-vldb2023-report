@@ -18,34 +18,34 @@
 	\draw[->, thick] (polysi) to (sat);
 	\draw[->, thick] (polysi) to (unsat);
 
-	\uncover<3->{
+	\uncover<2->{
 		\node[draw, below right = 1.50cm and 0.30cm of polysi.south, fill = brown!50, inner sep = 5pt, align = center]
 			(monosat) {MonoSAT \\ Solving};
 	}
-	\uncover<2->{
+	\uncover<1->{
 		\node[draw, below left = 1.50cm and 0.30cm of polysi.south, fill = brown!50, inner sep = 5pt, align = center]
 			(encoding) {SAT \\ Encoding};
 	}
-	\uncover<4->{
+	\uncover<3->{
 		\node[draw, left = 0.60cm of encoding, fill = brown!50, inner sep = 5pt, align = center]
 			(pruning) {Constraints \\ Pruning};
 	}
-	\uncover<5->{
+	\uncover<4->{
 		\node[draw, right = 0.60cm of monosat, fill = brown!50, inner sep = 5pt, align = center]
 			(counterexamples) {Counterexamples \\ Extracting};
 	}
-	\uncover<4->{
+	\uncover<3->{
 		\draw[->, thick, brown] (pruning) to (encoding);
 	}
-	\uncover<3->{
+	\uncover<2->{
 		\draw[->, thick, brown] (encoding) to (monosat);
 	}
-	\uncover<5->{
+	\uncover<4->{
 		\draw[->, thick, brown] (monosat) to (unsat);
 		\draw[->, thick, brown] (unsat) to (counterexamples);
 	}
 
-	\uncover<2->{
+	\uncover<1->{
 		\draw[dashed, very thick, blue] (polysi.south west) to (pruning.north west);
 		\draw[dashed, very thick, blue] (polysi.south east) to (counterexamples.north east);
 	}

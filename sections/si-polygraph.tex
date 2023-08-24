@@ -126,7 +126,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Polygraphs: A Family of Dependency Graphs}
+\begin{frame}{Polygraph based Characterization of SI}
 	\begin{center}
 		Consider the two cases of $\WW$ dependencies between $T_{A}$ and $T_{B}$.
 	\end{center}
@@ -144,8 +144,8 @@
 		\pause
 		\fig{width = 0.50\textwidth}{figs/banking-lost-update-polygraph}
 		polygraph:
-		$\tuple{\teal{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
-				\teal{\orvar} \triangleq \set{T_{B} \rel{\WW} T_{A}, T_{A}' \rel{\RW} T_{A}}}
+		$\tuple{\cyan{\eithervar} \triangleq \set{T_{A} \rel{\WW} T_{B}},
+				\cyan{\orvar} \triangleq \set{T_{B} \rel{\WW} T_{A}, T_{A}' \rel{\RW} T_{A}}}
 		$
 	\end{center}
 \end{frame}
@@ -226,10 +226,10 @@
 \begin{frame}{\textsc{PolySI}: An Illustrating Example}
 	\vspace{-0.50cm}
 	\[
-		\teal{\text{induced graph}}\; {\boxed{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)}}
+		\cyan{\text{induced graph}}\; \cyan{\mathcal{I}}\;
+		  {\boxed{((\SO_{\G} \cup \WR_{\G} \cup \WW_{\G}) \comp \RW_{\G}?)}}
 	\]
 
-	\vspace{-0.40cm}
   \begin{columns}
 		\column{0.50\textwidth}
 			\fig{width = 1.00\textwidth}{figs/polysi-alg-final}
@@ -237,19 +237,18 @@
 			\fig{width = 1.00\textwidth}{figs/polysi-alg-encoding}
 	\end{columns}
 
+	\vspace{0.50cm}
 	\uncover<2->{
 	\[
 		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{2}:\;
-		  \BV_{1,2}^{\red{I}} = \BV_{1,3} \;\land\; \BV_{3,2} \quad
-			(\red{I}\; \text{for the induced graph})
+		  \BV_{1,2}^{\cyan{\;\mathcal{I}}} = \BV_{1,3} \;\land\; \BV_{3,2} \quad
 	\]
 	}
 	\vspace{-0.30cm}
 	\uncover<3->{
 	\[
 		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{5}:\;
-		  \BV_{1,5}^{\red{I}} = \BV_{1,3} \;\land\; \BV_{3,5} \quad
-			(\red{I}\; \text{for the induced graph})
+		  \BV_{1,5}^{\cyan{\;\mathcal{I}}} = \BV_{1,3} \;\land\; \BV_{3,5} \quad
 	\]
 	}
 \end{frame}

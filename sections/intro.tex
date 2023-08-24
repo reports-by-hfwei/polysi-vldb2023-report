@@ -24,7 +24,7 @@
 		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-ser-write-skew-tikz}}
 
     \vspace{0.20cm}
-    Implementing SER is too expensive.
+    Implementing serializability is too expensive.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -65,7 +65,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Database systems and Snapshot Isolation}
   \begin{center}
-    Many database systems implement SI.
+    Many database systems implement snapshot isolation.
 
     \vspace{0.30cm}
     \fig{width = 0.80\textwidth}{figs/db-si}
@@ -76,7 +76,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Database Systems and Snapshot Isolation}
   \begin{center}
-    Database systems may \red{fail} to provide SI correctly.
+    Database systems may \red{fail} to provide snapshot isolation correctly.
 
     \vspace{0.30cm}
     \fig{width = 0.85\textwidth}{figs/db-si-violations}
@@ -106,18 +106,18 @@
     \input{tikz/checker-tikz}
 
     \vspace{0.30cm}
-    \only<2>{
+    \only<1>{
       \blue{\it Sound:} If the checker says \no,
         then the history does {\it not} satisfy SI.
     }
-    \only<3>{
+    \only<2>{
       \blue{\it Complete:} If the checker says \yes,
         then the history {\it satisfies} SI.
     }
-    \only<4>{
+    \only<3>{
       \blue{\it Efficient:} The checker should {\it scale} up to large workloads.
     }
-    \only<5>{
+    \only<4>{
       \blue{\it Informative:} The checker should provide
         understandable {\it counterexamples} if it finds violations.
     }
@@ -132,17 +132,32 @@
     \item[dbcop~\ncite{Complexity:OOPSLA2019}] checker for SI \\[2pt]
       not practically efficient; \\[2pt]
       not informative, returning only ``\textsf{False}'' upon violations
-    \pause
+    \item[Cobra~\ncite{Cobra:OSDI2020}] state-of-the-art checker for SER \\[2pt]
+      The SI checking problem is {\it harder}.
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Related Work}
+  \begin{description}
     \item[Elle~\ncite{Elle:VLDB2020}] checker for various isolation levels \\[2pt]
+
+      \vspace{0.20cm}
+      Work perfectly on traceable and recoverable histories;
+      but may be incomplete on the key-value datatype
+
       \pause
+      \vspace{0.20cm}
       SI checking based on the Adya-style notions~\ncite{Adya:PhDThesis1999}
       relies on the start/commit timestamps of transactions.\\[2pt]
+
       \pause
+      \vspace{0.20cm}
       SI checking based on the~\ncite{AnalysingSI:JACM2018} notions
-      is unsound for efficiency reasons.~\footnote{https://github.com/jepsen-io/elle/issues/17 (fixed now)}
-    \pause
-    \item[Cobra~\ncite{Cobra:OSDI2020}] state-of-the-art checker for SER \\[2pt]
-      SI checking is {\it harder} than SER checking.
+      may miss SI violations.\footnote{
+        Could Elle tell the difference between snapshot isolation and strong-session-snapshot-isolation? https://github.com/jepsen-io/elle/issues/17}
+        \footnote{Elle may miss two types of transaction anomalies. https://github.com/jepsen-io/elle/issues/21}
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -159,17 +174,17 @@
     \input{tikz/polysi-checker-tikz}
 
     \vspace{0.50cm}
-    \only<2>{
+    \only<1>{
       \blue{{\it Sound} \&{\it Complete:}}
-        polygraph based characterization of SI
+        a novel polygraph based characterization of SI
     }
-    \only<3>{
+    \only<2>{
       \blue{\it Efficient:} utilizing MonoSAT solver optimized for graph problems
     }
-    \only<4>{
+    \only<3>{
       \blue{\it Efficient:} domain-specific pruning before encoding
     }
-    \only<5>{
+    \only<4>{
       \blue{\it Informative:} extract counterexamples from the UNSAT core
     }
   \end{center}
