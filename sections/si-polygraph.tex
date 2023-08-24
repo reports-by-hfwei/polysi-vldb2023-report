@@ -152,15 +152,18 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example}
+\begin{frame}{\textsc{PolySI}: A Running Example}
 	\begin{center}
+		To explain the whole \polysi{} procedure with a running example.
+
+		\vspace{0.50cm}
 		\fig{width = 0.90\textwidth}{figs/polysi-checker-pruning-encoding-solving}
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example}
+\begin{frame}{\textsc{PolySI}: A Running Example}
 	\begin{center}
 		\resizebox{0.90\textwidth}{!}{\input{tikz/polysi-alg-tikz}}
 
@@ -199,12 +202,12 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example}
+\begin{frame}{\textsc{PolySI}: A Running Example}
 	\vspace{-0.50cm}
 	\[\tuple{
 		\uncover<2->{\purple{\eithervar} = \set{T_{1} \rel{\WW(\keyxvar)} T_{5},
 			T_{3} \rel{\RW(\keyxvar)} T_{5}}},
-		\uncover<3->{\violet{\orvar} = \set{T_{5} \rel{\WW(\keyxvar)} T_{1}}}
+		\uncover<2->{\violet{\orvar} = \set{T_{5} \rel{\WW(\keyxvar)} T_{1}}}
 	}\]
 
 	\vspace{-0.30cm}
@@ -213,7 +216,7 @@
 	\end{center}
 	\vspace{-0.50cm}
 
-	\uncover<4->{
+	\uncover<3->{
 		\[
 			\purple{(\BV_{1,5} \land \BV_{3,5} \land \lnot \BV_{5,1})} \lor
 			\violet{(\BV_{5,1} \land \lnot \BV_{1,5} \land \lnot \BV_{3,5})}
@@ -223,7 +226,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example}
+\begin{frame}{\textsc{PolySI}: A Running Example}
 	\vspace{-0.50cm}
 	\[
 		\cyan{\text{induced graph}}\; \cyan{\mathcal{I}}\;
@@ -240,42 +243,39 @@
 	\vspace{0.50cm}
 	\uncover<2->{
 	\[
-		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{2}:\;
-		  \BV_{1,2}^{\cyan{\;\mathcal{I}}} = \BV_{1,3} \;\land\; \BV_{3,2} \quad
+		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{5}:\;
+		  \BV_{1,5}^{\cyan{\;\mathcal{I}}} = \BV_{1,3} \;\land\; \BV_{3,5} \quad
 	\]
 	}
 	\vspace{-0.30cm}
-	\uncover<3->{
+	\uncover<2->{
 	\[
-		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{5}:\;
-		  \BV_{1,5}^{\cyan{\;\mathcal{I}}} = \BV_{1,3} \;\land\; \BV_{3,5} \quad
+		T_{1} \rel{\WR} T_{3} \rel{\RW} T_{2}:\;
+		  \BV_{1,2}^{\cyan{\;\mathcal{I}}} = \BV_{1,3} \;\land\; \BV_{3,2} \quad
 	\]
 	}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example}
+\begin{frame}{\textsc{PolySI}: A Running Example}
 	\begin{center}
-		Feed the SAT formula into the \blue{MonoSAT} solver~\ncite{MonoSAT:AAAI2015}
+		Feed the SAT formula into the \blue{MonoSAT} solver~\ncite{MonoSAT:AAAI2015} \\[2pt]
 		which is optimized for \purple{\it cycle detection}
 
 		\vspace{0.20cm}
 		\fig{width = 0.40\textwidth}{figs/sat-solver}
-		\vspace{0.20cm}
-
-		Assert that the induced graph $\red{I}$ is acyclic.
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\textsc{PolySI}: An Illustrating Example}
+\begin{frame}{\textsc{PolySI}: A Running Example}
 	\begin{center}
 		\fig{width = 0.50\textwidth}{figs/polysi-alg-cycle}
 
 		\vspace{0.20cm}
-		the undesired cycle found by MonoSAT
+		The MonoSAT solver finds an undesired cycle for SI.
 	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
