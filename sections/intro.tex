@@ -10,7 +10,8 @@
 		\resizebox{0.55\textwidth}{!}{\input{tikz/isolation-intro-write-skew-tikz}}
 
     \vspace{0.20cm}
-    The isolation levels specify how they are isolated from each other.
+    The isolation levels specify how concurrent transactions \\[2pt]
+    are isolated from each other.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -24,7 +25,7 @@
 		\resizebox{0.50\textwidth}{!}{\input{tikz/isolation-ser-write-skew-tikz}}
 
     \vspace{0.20cm}
-    Implementing serializability is too expensive.
+    However, implementing serializability is too expensive.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -103,21 +104,27 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The SI Checking Problem}
   \begin{center}
-    \input{tikz/checker-tikz}
-
-    \vspace{0.30cm}
-    \only<1>{
+    \uncover<1->{
       \blue{\it Sound:} If the checker says \no,
         then the history does {\it not} satisfy SI.
     }
-    \only<2>{
+
+    \vspace{0.20cm}
+    \uncover<2->{
       \blue{\it Complete:} If the checker says \yes,
         then the history {\it satisfies} SI.
     }
-    \only<3>{
+
+    \vspace{0.30cm}
+    \input{tikz/checker-tikz}
+    \vspace{0.30cm}
+
+    \uncover<3->{
       \blue{\it Efficient:} The checker should {\it scale} up to large workloads.
     }
-    \only<4>{
+
+    \vspace{0.20cm}
+    \uncover<4>{
       \blue{\it Informative:} The checker should provide
         understandable {\it counterexamples} if it finds violations.
     }
@@ -176,13 +183,13 @@
     \vspace{0.50cm}
     \only<1>{
       \blue{{\it Sound} \&{\it Complete:}}
-        a novel polygraph based characterization of SI
+        a novel {\it polygraph} based characterization of SI
     }
     \only<2>{
       \blue{\it Efficient:} utilizing MonoSAT solver optimized for graph problems
     }
     \only<3>{
-      \blue{\it Efficient:} domain-specific pruning before encoding
+      \blue{\it Efficient:} pruning the constraints on {\it polygraph} before encoding
     }
     \only<4>{
       \blue{\it Informative:} extract counterexamples from the UNSAT core
