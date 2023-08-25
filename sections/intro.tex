@@ -89,7 +89,10 @@
 \begin{frame}{The SI Checking Problem}
   \begin{definition}[The SI Checking Problem]
     The SI checking problem is the \purple{decision problem} of determing \\[5pt]
-    whether a \teal{{\it history} $\H = (T, \SO)$} of a database system satisfies SI?
+    whether a \teal{{\it history} $\H = (T, \SO)$}\footnote{
+      We take the common ``UniqueValue'' assumption on histories:
+      for each key, every write to the key assigns a unique value.
+    } of a database system satisfies SI?
   \end{definition}
 
   \fig{width = 0.60\textwidth}{figs/si-checking}
