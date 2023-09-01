@@ -1,5 +1,6 @@
 % appendix.tex
 
+\appendix
 %%%%%%%%%%%%%%%%%%%
 \begin{frame}{\polysi: Pruning before Encoding (the $\WW$ case)}
 	\begin{columns}
@@ -81,12 +82,22 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance Evaluation: Cobra}
+\begin{frame}{Performance Evaluation: Cobra with GPU}
+	\begin{center}
+		\polysi{} outperforms Cobra with GPU in 5 of the 6 benchmarks.
+		\fig{width = 0.80\textwidth}{figs/cobra-gpu}
+		Cobra implements a specific optimization for RMW workloads \\
+		(like TPC-C) {\it before} pruning and encoding.
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance Evaluation: Elle}
+\begin{frame}{Performance Evaluation: \polysi-{List}}
+	\begin{center}
+		Integrate list inference of Elle~\ncite{Elle:VLDB2020} into \polysi{}
+		\fig{width = 0.50\textwidth}{figs/runtime-elle}
+	\end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
